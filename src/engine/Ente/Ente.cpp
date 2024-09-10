@@ -3,7 +3,7 @@
 
 // Iniciando variáveis estáticas e gerenciadores
 int Ente::cont = 0;
-Gerenciador::Renderer*        Ente::gGrafico  = Gerenciador::Renderer::getRenderer();
+Gerenciador::Renderer*        Ente::gGrafico  = Gerenciador::Renderer::getInstance();
 Gerenciador::ResourceManager* Ente::gRecursos = Gerenciador::ResourceManager::getInstance();
 
 Ente::Ente():

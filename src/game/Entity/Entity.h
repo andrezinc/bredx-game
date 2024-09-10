@@ -30,7 +30,7 @@ public:
      * Inicializa as coordenadas x e y para 0.
      */
     Entity(int xx = 0, int yy = 0);
-    Entity(int xx, int yy, float offSetColisorX, float offSetColisorY, sf::Texture& textura);
+    Entity(int xx, int yy, sf::Texture& textura);
     /**
      * @brief Destruidor da classe Entity.
      * O destruidor é virtual para garantir a destruição correta das classes derivadas, nessa classe coloca as coordenadas em -1.
@@ -43,14 +43,8 @@ public:
      * e
      * Este método deve ser implementado pelas classes derivadas para definir o comportamento específico da entidade.
      */
-    virtual void executar() = 0;
-    virtual void executar(float deltaTime) = 0;
-    /**
-     * @brief Método puramente virtual para salvar o estado da entidade.
-     * 
-     * Este método deve ser implementado pelas classes derivadas para definir como o estado da entidade deve ser salvo e a lógica de permanência de objeto.
-     */
-    virtual nlohmann::json salvar() const = 0;
+    virtual void executar() {};
+    virtual void executar(float deltaTime) {};
 
     void renderizarCaixaColisao();
 

@@ -7,20 +7,26 @@ project(game)
 # Definir a versão do C++ utilizada
 set(CMAKE_CXX_STANDARD 17)
 
+# Definir o diretório onde o SFML e o Box2D estão instalados
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/lib/cmake/SFML")
+
+# Mensagem para verificar os diretórios
+message(STATUS "SFML_DIR: ${SFML_DIR}")
+
 # Incluir diretórios de inclusão
 include_directories(include)
 include_directories(${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/include)
+include_directories(${CMAKE_SOURCE_DIR}/libs/Box2D/include)
 
-# Definir o diretório onde o SFML está instalado
-set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/lib/cmake/SFML")
-set(SFML_DIR "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/lib/cmake/SFML")
+# Definir o CMAKE_PREFIX_PATH para encontrar as bibliotecas
+set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SFML_DIR};${BOX2D_DIR}")
 
-# Encontrar e carregar o pacote SFML
-find_package(SFML 2.6.1 COMPONENTS system window graphics network audio REQUIRED)
+# Encontrar e carregar os pacotes SFML e Box2D
+find_package(SFML 2.6.1 REQUIRED COMPONENTS system window graphics network audio)
 
 # Adicionar arquivos de origem e cabeçalhos
-file(GLOB_RECURSE SOURCES "src/*.cpp")  # Use o padrão '**/*.cpp' para capturar recursivamente
-file(GLOB_RECURSE HEADERS "include/*.h") # Use o padrão '**/*.h' para capturar recursivamente
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE HEADERS "include/*.h")
 
 # Nome e origem do executável
 add_executable(game ${SOURCES} ${HEADERS})
@@ -30,7 +36,7 @@ set_target_properties(game PROPERTIES
     WIN32_EXECUTABLE OFF  # Garante que seja um aplicativo de console
 )
 
-# Vincula as bibliotecas SFML estaticamente
+# Vincular as bibliotecas SFML e Box2D estaticamente
 target_link_libraries(game 
     sfml-system
     sfml-window

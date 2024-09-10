@@ -9,9 +9,8 @@ Entity::Entity(int xx, int yy):
     y = yy;
     sprite.setPosition(x, y);
 }
-Entity::Entity(int xx, int yy, float offSetColisorX, float offSetColisorY, sf::Texture& textura):
+Entity::Entity(int xx, int yy, sf::Texture& textura):
     Ente(textura),
-    offSetColisao(offSetColisorX, offSetColisorY),
     caixaColisao(sf::Vector2f(0.f, 0.f))
 {
     x = xx;

@@ -17,7 +17,7 @@ protected:
     const int id;                           //< Indentificador para permanência de objeto
     static int cont;                        //< Contador de ID
     static Gerenciador::Renderer* gGrafico; //< Instância única do renderer
-    static ResourceManager* gRecursos;      //< Instancia única do gerenciador de recursos
+    static Gerenciador::ResourceManager* gRecursos;      //< Instancia única do gerenciador de recursos
     sf::Sprite sprite;                      //< Shape a ser desenhado do elemento.
 public:
     /**
