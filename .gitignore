@@ -1,0 +1,45 @@
+# Diretório de construção
+/build/
+/.vscode/
+# Arquivos binários
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+
+# Diretórios de bibliotecas
+/libs/SFML-2.6.1/
+
+# Diretório do vscode
+/.vs-code
+
+# Documentação Doxygen
+/docs/html
+
+# Diretórios de configuração do CMake
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+
+# Arquivos de projeto da IDE
+*.code-workspace
+/.vscode/
+/.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Temporário uml
+/docs/uml/diagrama-de-classes.~ml
