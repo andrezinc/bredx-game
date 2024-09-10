@@ -2,7 +2,7 @@
 
 int main()
 {
-    Gerenciador::Renderer* janela = Gerenciador::Renderer::getRenderer(800, 600, "Prodislexos Game");
+    Gerenciador::Renderer* janela = Gerenciador::Renderer::getInstance(800, 600, "Prodislexos Game");
     
     while(janela->isOpen())
     {

@@ -1,7 +1,9 @@
 #include "ResourceManager.h"
 #include <iostream>
 
-ResourceManager* ResourceManager::singleton = nullptr;
+
+Gerenciador::ResourceManager* Gerenciador::ResourceManager::singleton = nullptr;
+namespace Gerenciador{
 ResourceManager* ResourceManager::getInstance()
 {
     if(singleton == nullptr)
@@ -79,4 +81,5 @@ sf::Image& ResourceManager::getImage(const std::string& id)
 {
     // Colocar retorno de placeHolder caso a imagem não exista
     return imagens.at(id);
+}
 }

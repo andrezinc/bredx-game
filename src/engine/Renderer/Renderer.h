@@ -19,7 +19,6 @@
  * 
  * @author Vitor-tml
 */
-// namespace Gerenciadores{
 namespace Gerenciador{
 class Renderer {
 private:
@@ -43,7 +42,7 @@ public:
      * @param titulo valora padrao: "Nova Janela"
      * @return ponteiro singleton do gerenciador.
     */
-    static Renderer *getRenderer(int largura = 800, int altura = 600, const std::string& titulo =  "Nova Janela");
+    static Renderer *getInstance(int largura = 800, int altura = 600, const std::string& titulo =  "Nova Janela");
     /**
      * @brief Adiciona elementos na fila de renderização.
      * @param drawable qualquer objeto desenhável do SFML (sprite, texto, etc)

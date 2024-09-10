@@ -17,7 +17,7 @@ Renderer::~Renderer()
     delete singleton;
 }
 
-Renderer* Renderer::getRenderer(int largura, int altura, const std::string& titulo)
+Renderer* Renderer::getInstance(int largura, int altura, const std::string& titulo)
 {
     if(singleton == nullptr)
         singleton = new Renderer(largura, altura, titulo);

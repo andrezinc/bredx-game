@@ -15,6 +15,7 @@
  * 
  * @author Vitor-tml
  */
+namespace Gerenciador{
 class ResourceManager{
 private:
     static ResourceManager *singleton; ///< Instância singleton do gerenciador de recursos
@@ -78,4 +79,5 @@ public:
      */
     sf::Image& getImage(const std::string& id);
 };
+}
 #endif
