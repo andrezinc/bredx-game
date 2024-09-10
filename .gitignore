@@ -13,7 +13,7 @@
 
 # Diretórios de bibliotecas
 /libs/SFML-2.6.1/
-
+/libs/box2d
 # Diretório do vscode
 /.vs-code
 
