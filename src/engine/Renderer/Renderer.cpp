@@ -3,8 +3,9 @@
 #include <iostream>
 
 namespace Gerenciador{
+// Iniciando singleton
 Gerenciador::Renderer* Renderer::singleton = nullptr;
-int Renderer::camadaJanela = 0;
+
 Renderer::Renderer(int largura, int altura, const std::string &titulo)
     : janela(sf::VideoMode(largura, altura), titulo),
       camera(sf::FloatRect(0, 0, largura, altura)) // Inicia câmera com tamanho da janela
@@ -12,8 +13,7 @@ Renderer::Renderer(int largura, int altura, const std::string &titulo)
     janela.setFramerateLimit(60);
 }
 
-Renderer::~Renderer()
-{
+Renderer::~Renderer(){
     delete singleton;
 }
 
@@ -25,33 +25,23 @@ Renderer* Renderer::getInstance(int largura, int altura, const std::string& titu
     return singleton;
 }
 
-void Renderer::addDrawable(const sf::Drawable &drawable, int camada)
-{
-    // if(camada == 0 && !drawables.empty()) ///< Caso a camada seja 0 e não seja a primeira da fila, coloca como última da fila
-    //     camada = drawables.size();
-    //std::cout << "Rederizando camada: " << camadaJanela << std::endl;
-    drawables.push_back(std::make_pair(&drawable, camadaJanela++));
-    // drawables.push_back(std::make_pair(&drawable, camadaJanela));
+void Renderer::addDrawable(const sf::Drawable &drawable, int camada){
+    drawables.push_back(std::make_pair(&drawable, camada));
 }
 
-void Renderer::clearDrawables()
-{
-    camadaJanela = 0;
+void Renderer::clearDrawables(){
     drawables.clear();
 }
 
-void Renderer::moveCamera(float x, float y)
-{
+void Renderer::moveCamera(float x, float y){
     camera.move(x, y);
 }
 
-void Renderer::setCentroCamera(float x, float y)
-{
+void Renderer::setCentroCamera(float x, float y){
     camera.setCenter(x, y);
 }
 
-void Renderer::setTamanhoCamera(float largura, float altura)
-{
+void Renderer::setTamanhoCamera(float largura, float altura){
     camera.setSize(altura, largura);
 }
 
@@ -70,25 +60,26 @@ void Renderer::render()
 
     );
 
-    for (const auto &drawable : drawables)
-    {
+    for (const auto &drawable : drawables){
         janela.draw(*drawable.first);
     }
 
     janela.display();
 }
 
-bool Renderer::isOpen()
-{
+bool Renderer::isOpen(){
     return janela.isOpen();
 }
 
-void Renderer::close()
-{
+void Renderer::close(){
     janela.close();
 }
-bool Renderer::pollEvent(sf::Event &evento)
-{
+bool Renderer::pollEvent(sf::Event &evento){
     return janela.pollEvent(evento);
 }
+
+sf::Vector2u Renderer::getTamanho() const { 
+    return janela.getSize();
+}
+
 }

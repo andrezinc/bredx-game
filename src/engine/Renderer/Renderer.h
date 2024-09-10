@@ -90,7 +90,12 @@ public:
      * @param evento objeto do tipo Event passado por parâmetro para receber os eventos não tratados
      */
     bool pollEvent(sf::Event &evento);
-    sf::Vector2u getTamanho() const { return janela.getSize();}
+    /**
+     * @brief Retorna o tamanho da janela
+     * 
+     * @return sf::Vector2u (.x e .y)
+     */
+    sf::Vector2u getTamanho() const;
 };
 // }
 }
