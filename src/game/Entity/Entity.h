@@ -9,64 +9,46 @@
  * @brief Classe base para entidades no jogo.
  * 
  * Esta é uma classe abstrata que define a interface para todas as entidades no jogo.
- * As classes derivadas devem implementar os métodos puros virtuais `executar` e `salvar`.
+ * As classes derivadas devem implementar os métodos puros virtuais `executar`.
  * @see Ente
  * @author Vitor-tml
  */
 class Entity : public Ente {
 protected:
-    int x; ///< Coordenada x da entidade.
-    int y; ///< Coordenada y da entidade.
-    sf::RectangleShape caixaColisao;
-    sf::Vector2f offSetColisao;
-
+    sf::Vector2f posicao;
     sf::Vector2f velocidade;
+    sf::RectangleShape hitBox;
     PhysicsComponent fisica;
-    bool estaNoChao;
-    bool ativo;
 public:
     /**
      * @brief Construtor padrão da classe Entity.
      * Inicializa as coordenadas x e y para 0.
      */
-    Entity(int xx = 0, int yy = 0);
-    Entity(int xx, int yy, sf::Texture& textura);
+    Entity(int x = 0, int y = 0);
+
+    /**
+     * @brief Construtora com parâmetro de posição e textura.
+     * @param x coordenada no eixo x 
+     * @param y coordenada no eixo y
+     * @param textura objeto textura do SFML
+     */
+    Entity(sf::Texture &textura,  int x = 0, int y = 0);
+
     /**
      * @brief Destruidor da classe Entity.
-     * O destruidor é virtual para garantir a destruição correta das classes derivadas, nessa classe coloca as coordenadas em -1.
+     * O destruidor é virtual para garantir a destruição correta das classes derivadas.
      */
-    virtual ~Entity() {};
-    sf::RectangleShape getCaixaColisao() const;
+    virtual ~Entity() {}
 
     /**
-     * @brief Método puramente virtual para executar a lógica da entidade.
-     * e
+     * @brief Método para executar a lógica da entidade.
      * Este método deve ser implementado pelas classes derivadas para definir o comportamento específico da entidade.
      */
-    virtual void executar() {};
-    virtual void executar(float deltaTime) {};
+    void executar(float deltaTime);
 
-    void renderizarCaixaColisao();
-
-    void inicializarCaixaColisao();
-    void inicializarCaixaColisao(int largura, int altura);
-    void atualizarCaixaColisao();
-
-    sf::Vector2f getPosicao() const { return sf::Vector2f(x, y);}
-    
-    void setVelocidade(const sf::Vector2f& novaVelocidade);
-    sf::Vector2f getVelocidade() const;
-
-    void setNoChao(bool noChao);
-    bool getNoChao() const;
-
-    void setPosicao(int xx, int yy);
-    void setPosicao(sf::Vector2f posicao);
-
-    int getID() const { return id; }
-    void verificarLimitesTela();
-    int getExecutar() const { return ativo;}
-    void setExecutar(bool r) { ativo = r;}
+    void setPosicao(int x, int y);
+    void setPosicao(sf::Vector2f novaPosicao);
+    sf::Vector2f getPosicao() const;
 };
 
-#endif
+#endif // _ENTITY_H_

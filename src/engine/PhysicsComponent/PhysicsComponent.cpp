@@ -1,25 +1,22 @@
 #include "PhysicsComponent.h"
 #include <iostream>
-PhysicsComponent::PhysicsComponent(float gravity, float jumpHeight)
-    : gravidade(gravity), alturaPulo(jumpHeight){}
 
-void PhysicsComponent::aplicaFisica(sf::Sprite& entidade, sf::Vector2f& velocidade, float deltaTime, bool& estaNoChao) // mudar para x e y o move
+float PhysicsComponent::gravidade = 980.f;
+PhysicsComponent::PhysicsComponent(sf::Vector2f  *position, sf::Vector2f *speed)
 {
-    // Aplica a gravidade
-    velocidade.y += gravidade * deltaTime;
-    // Verifica colisão com o chão ou outras plataformas
-    if (estaNoChao || entidade.getPosition().y >= 700)
-    {
-        // Apenas aplicando a gravidade se não estiver no chão
-        velocidade.y = 0;
-    }
-    // Atualiza a posição
-    entidade.move(velocidade * deltaTime);
-    
-    
+    velocidade = speed;
+    posicao = position;
 }
 
-float PhysicsComponent::getPulo()const
+void PhysicsComponent::aplicaFisica(float deltaTime) // mudar para x e y o move
 {
-    return alturaPulo; 
+    // Aplica a gravidade
+    if(posicao->y < 500){
+        velocidade->y += gravidade * deltaTime;
+    }else{
+        velocidade->y = 0;
+    }
+    
+    posicao->x += velocidade->x * deltaTime;
+    posicao->y += velocidade->y * deltaTime;
 }

@@ -25,14 +25,17 @@ private:
     ResourceManager(){}; ///< Construtora privada para evitar outras instâncias
     ~ResourceManager(){ delete singleton; };
 public:
+
     /**
      * @brief Retorna o ponteiro para a instância singleton do gerenciador
      * @throw Na primeira chamar aloca o gerenciador.
      * @return Ponteiro para a instância.
      */
     static ResourceManager* getInstance();
-    ResourceManager(const ResourceManager&) = delete; ///< Previne cópia.
+
+    ResourceManager(const ResourceManager&) = delete;            ///< Previne cópia.
     ResourceManager& operator=(const ResourceManager&) = delete; ///< Previne atribuição.
+    
     /**
      * @brief Carrega textura e armazena com indentificador.
      * @param id identificador da textura a ser usado posteriormente.
@@ -41,6 +44,7 @@ public:
      * @return true se a textura foi carregada com sucesso, false caso não.
      */
     bool loadTexture(const std::string& id, const std::string& filename);
+    
     /**
      * @brief Carrega fonte e armazena com indentificador.
      * @param id identificador da fonte a ser usado posteriormente.
@@ -50,6 +54,7 @@ public:
      * @return false se não foi possível carregar a fonte
      */
     bool loadFont(const std::string& id, const std::string& filename);
+    
     /**
      * @brief Carrega imagem e armazena com um indentificador
      * @param id identificador da imagem a ser usado posteriormente.
@@ -60,18 +65,21 @@ public:
      * @todo Adicionar poka-yoke caso a imagem não possa ser carregada
      */
     bool loadImage(const std::string& id, const std::string& filename);
+    
     /**
      * @brief Retorna uma textura posteriormente carregada, a partir de um identificador.
      * @param id Identificador da textura já armazenada.
      * @return Referência a textura relativa ao ID.
      */
     sf::Texture& getTexture(const std::string& id);
+    
     /**
      * @brief Retorna uma fonte posteriormente carregada, a partir de um identificador.
      * @param id Identificador da fonte já armazenada.
      * @return Referência a fonte relativa ao ID.
      */
     sf::Font& getFont(const std::string& id);
+    
     /**
      * @brief Retorna uma imagem posteriormente carregada, a partir de um identificador.
      * @param id Identificador da imagem já armazenada.

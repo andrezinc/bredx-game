@@ -21,7 +21,7 @@ include_directories(${CMAKE_SOURCE_DIR}/libs/Box2D/include)
 # Definir o CMAKE_PREFIX_PATH para encontrar as bibliotecas
 set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${SFML_DIR};${BOX2D_DIR}")
 
-# Encontrar e carregar os pacotes SFML e Box2D
+# Encontrar e carregar os pacotes SFML
 find_package(SFML 2.6.1 REQUIRED COMPONENTS system window graphics network audio)
 
 # Adicionar arquivos de origem e cabeçalhos
@@ -36,7 +36,7 @@ set_target_properties(game PROPERTIES
     WIN32_EXECUTABLE OFF  # Garante que seja um aplicativo de console
 )
 
-# Vincular as bibliotecas SFML e Box2D estaticamente
+# Vincular as bibliotecas SFML
 target_link_libraries(game 
     sfml-system
     sfml-window

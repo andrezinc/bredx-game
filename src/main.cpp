@@ -8,8 +8,9 @@ int main()
     playerImage.create(50, 50, sf::Color::Blue);
     sf::Texture playerTextura;
     playerTextura.loadFromImage(playerImage);
-    Entity player(400, 300, playerTextura);
-
+    Entity player(playerTextura, 400, 300);
+    sf::Clock clock;    
+    float deltaTime;
     while(janela->isOpen())
     {
         sf::Event evento;
@@ -18,7 +19,9 @@ int main()
             if(evento.type == sf::Event::Closed)
                 janela->close();
         }
+        deltaTime = clock.restart().asSeconds();
         player.renderizar();
+        player.executar(deltaTime);
         janela->render();
     }
 }
