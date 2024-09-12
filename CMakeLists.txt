@@ -26,7 +26,8 @@ find_package(SFML 2.6.1 REQUIRED COMPONENTS system window graphics network audio
 
 # Adicionar arquivos de origem e cabeçalhos
 file(GLOB_RECURSE SOURCES "src/*.cpp")
-file(GLOB_RECURSE HEADERS "include/*.h")
+file(GLOB_RECURSE HEADERS "include/*.h")   
+file(GLOB_RECURSE HEADERS "libs/*.h")   
 
 # Nome e origem do executável
 add_executable(game ${SOURCES} ${HEADERS})
@@ -45,13 +46,12 @@ target_link_libraries(game
     sfml-audio
 )
 
-
 # Copiar as DLLs para o diretório de saída
 if (MSYS)
     message(STATUS "Detectado Sistema Windows. Copiando DLLs")
     add_custom_command(TARGET game POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-           "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/bin/openal32.dll"
+            "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/bin/openal32.dll"
             "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/bin/sfml-audio-2.dll"
             "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/bin/sfml-audio-d-2.dll"
             "${CMAKE_SOURCE_DIR}/libs/SFML-2.6.1/bin/sfml-graphics-2.dll"
