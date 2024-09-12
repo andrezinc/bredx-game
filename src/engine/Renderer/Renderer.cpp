@@ -42,7 +42,7 @@ void Renderer::setCentroCamera(float x, float y){
 }
 
 void Renderer::setTamanhoCamera(float largura, float altura){
-    camera.setSize(altura, largura);
+    camera.setSize(largura, altura);
 }
 
 void Renderer::render()
@@ -65,6 +65,7 @@ void Renderer::render()
     }
 
     janela.display();
+    clearDrawables();
 }
 
 bool Renderer::isOpen(){

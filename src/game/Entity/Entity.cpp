@@ -37,6 +37,21 @@ sf::Vector2f Entity::getPosicao() const
 
 void Entity::executar(float deltaTime)
 {
+    // Movimentação básica para testes
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        velocidade.y = -100.f; // Mover para cima
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        velocidade.y = 100.f;  // Mover para baixo
+    else
+        velocidade.y = 0.f;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        velocidade.x = -100.f; // Mover para a esquerda
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        velocidade.x = 100.f;  // Mover para a direita
+    else
+        velocidade.x = 0.f;
+
     fisica.aplicaFisica(deltaTime);
     sprite.setPosition(posicao);
 }
