@@ -5,10 +5,7 @@ Entity::Entity(int x, int y) :
         Ente(),
         fisica(&posicao, &velocidade)
 {
-    // Origem embaixo no meio
-    sf::FloatRect tamanho = sprite.getGlobalBounds();
-    sprite.setOrigin(tamanho.width/2, tamanho.height);
-    
+    setOrigin();
     posicao = sf::Vector2f(x, y);
 }
 
@@ -17,9 +14,16 @@ Entity::Entity(sf::Texture &textura, int x, int y) :
         hitBox(sf::Vector2f(0.f, 0.f)),
         fisica(&posicao, &velocidade)
 {
+    setOrigin();
     posicao = sf::Vector2f(x, y);
 }
 
+void Entity::setOrigin()
+{
+    // Origem embaixo no meio
+    sf::FloatRect tamanho = sprite.getGlobalBounds();
+    sprite.setOrigin(tamanho.width/2, tamanho.height);
+}
 void Entity::setPosicao(int x, int y)
 {
     posicao = sf::Vector2f(x, y);

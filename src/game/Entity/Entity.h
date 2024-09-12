@@ -49,6 +49,7 @@ public:
     void setPosicao(int x, int y);
     void setPosicao(sf::Vector2f novaPosicao);
     sf::Vector2f getPosicao() const;
+    void setOrigin();
 };
 
 #endif // _ENTITY_H_

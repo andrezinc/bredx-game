@@ -8,7 +8,7 @@ int main()
 {
 
     Gerenciador::Renderer* janela = Gerenciador::Renderer::getInstance(800, 600, "Prodislexos Game");
-    janela->setTamanhoCamera(400, 300);
+    janela->setTamanhoCamera(300, 225);
 
     // Define os tiles do mapa (0, 1, 2, ...)
     std::vector<int> level = {
