@@ -37,8 +37,6 @@ sf::Vector2f Entity::getPosicao() const
 
 void Entity::executar(float deltaTime)
 {
-    std::cout << posicao.x  << " " << posicao.y << std::endl;
-
     fisica.aplicaFisica(deltaTime);
     sprite.setPosition(posicao);
 }

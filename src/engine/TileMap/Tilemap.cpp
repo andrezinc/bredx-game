@@ -1,49 +1,41 @@
-#include "Tilemap.h"
+#include "TileMap.h"
 
-Tilemap::Tilemap() {}
-Tilemap::~Tilemap() {}
+TileMap::TileMap() {}
+TileMap::~TileMap() {}
 
-bool Tilemap::load(const std::string &tileset, sf::Vector2u tileSize, const std::vector<int> &tiles, unsigned int width, unsigned int height)
+bool TileMap::loadFromMapData(const std::string& tileset, const MapData& mapData) 
 {
-    // Carrega a textura do tileset
     if (!m_tileset.loadFromFile(tileset))
         return false;
 
-    // Redimensiona o vertex array para o tamanho do mapa
     m_vertices.setPrimitiveType(sf::Quads);
-    m_vertices.resize(width * height * 4);
+    m_vertices.resize(mapData.mapWidth * mapData.mapHeight * 4);
 
-    // Popula o vertex array com um quad para cada tile
-    for (unsigned int i = 0; i < width; ++i)
-        for (unsigned int j = 0; j < height; ++j)
-        {
-            // Obtem o índice atual do tile
-            int tileNumber = tiles[i + j * width];
+    for (const auto& layer : mapData.layers) {
+        for (const auto& tile : layer.tiles) {
+            int tileNumber = tile.id;
 
-            // Encontra sua posição no tileset 
-            int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
-            int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
+            int tu = tileNumber % (m_tileset.getSize().x / mapData.tileSize);
+            int tv = tileNumber / (m_tileset.getSize().x / mapData.tileSize);
 
-            // Obtem um ponteiro para o quad atual no vertex array
-            sf::Vertex *quad = &m_vertices[(i + j * width) * 4];
+            sf::Vertex* quad = &m_vertices[(tile.x + tile.y * mapData.mapWidth) * 4];
 
-            // Define suas quatro posições
-            quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
-            quad[1].position = sf::Vector2f((i + 1) * tileSize.x, j * tileSize.y);
-            quad[2].position = sf::Vector2f((i + 1) * tileSize.x, (j + 1) * tileSize.y);
-            quad[3].position = sf::Vector2f(i * tileSize.x, (j + 1) * tileSize.y);
+            quad[0].position = sf::Vector2f(tile.x * mapData.tileSize, tile.y * mapData.tileSize);
+            quad[1].position = sf::Vector2f((tile.x + 1) * mapData.tileSize, tile.y * mapData.tileSize);
+            quad[2].position = sf::Vector2f((tile.x + 1) * mapData.tileSize, (tile.y + 1) * mapData.tileSize);
+            quad[3].position = sf::Vector2f(tile.x * mapData.tileSize, (tile.y + 1) * mapData.tileSize);
 
-            // Define suas quatro coordenadas de textura
-            quad[0].texCoords = sf::Vector2f(tu * tileSize.x, tv * tileSize.y);
-            quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
-            quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
-            quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+            quad[0].texCoords = sf::Vector2f(tu * mapData.tileSize, tv * mapData.tileSize);
+            quad[1].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, tv * mapData.tileSize);
+            quad[2].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, (tv + 1) * mapData.tileSize);
+            quad[3].texCoords = sf::Vector2f(tu * mapData.tileSize, (tv + 1) * mapData.tileSize);
         }
+    }
 
     return true;
 }
 
-void Tilemap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // Aplica a transformação
     states.transform *= getTransform();
