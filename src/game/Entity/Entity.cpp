@@ -45,18 +45,20 @@ sf::Vector2f Entity::getPosicao() const
 
 void Entity::executar(float deltaTime)
 {
+    float speed  = 200.f; // pixels per second
+
     // Movimentação básica para testes
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        velocidade.y = -100.f; // Mover para cima
+        velocidade.y = -speed; // Mover para cima
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        velocidade.y = 100.f;  // Mover para baixo
+        velocidade.y = speed;  // Mover para baixo
     else
         velocidade.y = 0.f;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        velocidade.x = -100.f; // Mover para a esquerda
+        velocidade.x = -speed; // Mover para a esquerda
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        velocidade.x = 100.f;  // Mover para a direita
+        velocidade.x = speed;  // Mover para a direita
     else
         velocidade.x = 0.f;
 
@@ -96,4 +98,16 @@ void Entity::setHitBoxOffset(sf::Vector2f offset)
 void Entity::atualizaHitBox()
 {
     hitBox.setPosition(sprite.getPosition() - sf::Vector2f(hitBoxSize.x / 2, hitBoxSize.y) + hitBoxOffset);
+}
+
+void Entity::setTexture(sf::Texture& textura)
+{
+    std::cout << "Configurando textura!" << std::endl;
+    sprite.setTexture(textura);
+}
+
+void Entity::setSize(const sf::Vector2f& size) {
+    sf::Vector2f currentSize(sprite.getLocalBounds().width, sprite.getLocalBounds().height);
+    sf::Vector2f scale(size.x / currentSize.x, size.y / currentSize.y);
+    sprite.setScale(scale);
 }

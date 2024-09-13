@@ -75,6 +75,8 @@ public:
     void setHitBoxOffset(sf::Vector2f offset);
 
     void atualizaHitBox();
-};
 
+    void setTexture(sf::Texture& textura);
+    void setSize(const sf::Vector2f& size);
+};
 #endif // _ENTITY_H_
