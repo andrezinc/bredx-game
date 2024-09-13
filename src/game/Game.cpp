@@ -21,6 +21,8 @@ Game::Game()
     player.setSize(sf::Vector2f(16, 16));
     player.setHitBoxSize(sf::Vector2f(16, 16));
     player.setPosicao(0, 0);
+
+    lEntidades.push_back(&player);
 }
 
 Game::~Game()
@@ -39,8 +41,13 @@ void Game::executar()
         }
         deltaTime = clock.restart().asSeconds();
         player.executar(deltaTime);
-        player.renderizar(1);
-        janela->addDrawable(player.getHitBox(), 3);
+
+        for(Entity* e : lEntidades)
+        {
+            e->executar(deltaTime);
+            e->renderizar();
+            janela->addDrawable(e->getHitBox(), 3);
+        }
         janela->setCentroCamera(player.getPosicao().x, player.getPosicao().y);
         janela->addDrawable(map);
         janela->render();

@@ -3,6 +3,7 @@
 #include "./Entity/Entity.h"
 #include "../engine/TileMap/TileMap.h"
 #include "../engine/TileMap/MapLoader.h"
+#include <vector>
 class Game
 {
 private:
@@ -13,6 +14,7 @@ private:
     float deltaTime;
 
     Entity player;
+    std::vector<Entity*> lEntidades;    
 public:
     Game();
     ~Game();
