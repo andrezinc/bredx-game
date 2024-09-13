@@ -42,7 +42,7 @@ public:
      * @param titulo valora padrao: "Nova Janela"
      * @return ponteiro singleton do gerenciador.
     */
-    static Renderer *getInstance(int largura = 800, int altura = 600, const std::string& titulo =  "Nova Janela");
+    static Renderer *getInstance(int largura = 1280, int altura = 720, const std::string& titulo =  "Prodilexos Game");
     /**
      * @brief Adiciona elementos na fila de renderização.
      * @param drawable qualquer objeto desenhável do SFML (sprite, texto, etc)

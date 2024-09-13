@@ -6,9 +6,8 @@
 // 38 x 14 tiles
 int main()
 {
-
-    Gerenciador::Renderer* janela = Gerenciador::Renderer::getInstance(800, 600, "Prodislexos Game");
-    janela->setTamanhoCamera(300, 225);
+    Gerenciador::Renderer* janela = Gerenciador::Renderer::getInstance();
+    janela->setTamanhoCamera(640, 320);
 
     // Define os tiles do mapa (0, 1, 2, ...)
     std::vector<int> level = {
@@ -44,6 +43,7 @@ int main()
         deltaTime = clock.restart().asSeconds();
         player.executar(deltaTime);
         player.renderizar(1);
+        janela->addDrawable(player.getHitBox(), 3);
         janela->setCentroCamera(player.getPosicao().x, player.getPosicao().y);
         janela->addDrawable(map);
         janela->render();

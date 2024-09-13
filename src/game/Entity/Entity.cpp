@@ -3,10 +3,13 @@
 
 Entity::Entity(int x, int y) : 
         Ente(),
-        fisica(&posicao, &velocidade)
+        fisica(&posicao, &velocidade),
+        hitBoxSize(sf::Vector2f(0.f, 0.f)),
+        hitBoxOffset(sf::Vector2f(0.f, 0.f))
 {
     setOrigin();
     posicao = sf::Vector2f(x, y);
+    criarHitBox();  // Inicializa a hitbox
 }
 
 Entity::Entity(sf::Texture &textura, int x, int y) : 
@@ -16,6 +19,7 @@ Entity::Entity(sf::Texture &textura, int x, int y) :
 {
     setOrigin();
     posicao = sf::Vector2f(x, y);
+    criarHitBox();  // Inicializa a hitbox
 }
 
 void Entity::setOrigin()
@@ -58,4 +62,38 @@ void Entity::executar(float deltaTime)
 
     fisica.aplicaFisica(deltaTime);
     sprite.setPosition(posicao);
+    atualizaHitBox();
+}
+
+void Entity::criarHitBox()
+{
+    hitBox.setFillColor(sf::Color::Transparent); // Tornar a hitbox visível sem preenchimento
+    hitBox.setOutlineColor(sf::Color::Red); // Cor da borda da hitbox
+    hitBox.setOutlineThickness(1.f); // Espessura da borda  
+    
+    // Se a hitbox personalizada não for definida, use o tamanho da sprite
+    if (hitBoxSize == sf::Vector2f(0.f, 0.f))
+    {
+        hitBoxSize = sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
+    }
+
+    // Atualiza o tamanho e a posição da hitbox com base na sprite e offset
+    hitBox.setSize(hitBoxSize);
+}
+
+void Entity::setHitBoxSize(sf::Vector2f size)
+{
+    hitBoxSize = size;
+    criarHitBox();  // Atualiza a hitbox ao mudar o tamanho
+}
+
+void Entity::setHitBoxOffset(sf::Vector2f offset)
+{
+    hitBoxOffset = offset;
+    criarHitBox();  // Atualiza a hitbox ao mudar o offset
+}
+
+void Entity::atualizaHitBox()
+{
+    hitBox.setPosition(sprite.getPosition() - sf::Vector2f(hitBoxSize.x / 2, hitBoxSize.y) + hitBoxOffset);
 }

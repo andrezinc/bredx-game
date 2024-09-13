@@ -1,7 +1,16 @@
 #include "TileMap.h"
 
-TileMap::TileMap() {}
-TileMap::~TileMap() {}
+TileMap::TileMap()
+{
+    entidades.clear();
+}
+TileMap::~TileMap()
+{
+    for(const auto & entidade : entidades)
+    {
+        delete entidade;
+    }
+}
 
 bool TileMap::loadFromMapData(const std::string& tileset, const MapData& mapData) 
 {
@@ -29,6 +38,11 @@ bool TileMap::loadFromMapData(const std::string& tileset, const MapData& mapData
             quad[1].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, tv * mapData.tileSize);
             quad[2].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, (tv + 1) * mapData.tileSize);
             quad[3].texCoords = sf::Vector2f(tu * mapData.tileSize, (tv + 1) * mapData.tileSize);
+
+            if(layer.collider){
+                TileEntity* novoTile = new TileEntity(tile.x, tile.y, mapData.tileSize,  mapData.tileSize);
+                entidades.push_back(novoTile);
+            }
         }
     }
 

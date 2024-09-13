@@ -19,6 +19,8 @@ Renderer::~Renderer(){
 
 Renderer* Renderer::getInstance(int largura, int altura, const std::string& titulo)
 {
+    std::cout << largura << " " << altura << " " << titulo << std::endl;
+
     if(singleton == nullptr)
         singleton = new Renderer(largura, altura, titulo);
     

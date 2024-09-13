@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
+#include "TileEntity.h"
 
 struct  Tile {
     int id;
@@ -33,6 +34,7 @@ struct MapData {
  */
 class TileMap : public sf::Drawable, public sf::Transformable {
 private:
+    std::vector<Entity*> entidades;
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

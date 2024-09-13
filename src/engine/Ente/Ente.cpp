@@ -9,7 +9,7 @@ Gerenciador::ResourceManager* Ente::gRecursos = Gerenciador::ResourceManager::ge
 Ente::Ente():
     id(++cont)
 {
-    std::cout << "Construtora sem parametro (ente): " << id << " Adicionando placeHolder na sprite" << std::endl;
+    // std::cout << "Construtora sem parametro (ente): " << id << " Adicionando placeHolder na sprite" << std::endl;
     sf::Texture placeHolder;
     placeHolder.create(64, 64);
     sprite.setTexture(placeHolder);
