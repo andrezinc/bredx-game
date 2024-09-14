@@ -13,7 +13,7 @@ private:
     sf::Clock clock;
     float deltaTime;
 
-    Entity player;
+    Entity *player;
     std::vector<Entity*> lEntidades;    
 public:
     Game();

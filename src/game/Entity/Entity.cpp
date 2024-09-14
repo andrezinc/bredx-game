@@ -7,7 +7,7 @@ Entity::Entity(int x, int y) :
         hitBoxSize(sf::Vector2f(0.f, 0.f)),
         hitBoxOffset(sf::Vector2f(0.f, 0.f))
 {
-    setOrigin();
+    setOrigin();    // Isso serve para todas as entidades? ou só para as que se movem?
     posicao = sf::Vector2f(x, y);
     criarHitBox();  // Inicializa a hitbox
 }
