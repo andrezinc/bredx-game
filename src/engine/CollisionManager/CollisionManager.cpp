@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 #include <iostream>
 
+namespace Gerenciador{
 CollisionManager::CollisionManager()
 {
     entidades.clear();
@@ -52,4 +53,6 @@ void CollisionManager::tratarColisoes()
 bool CollisionManager::verificaColisao(Entity* a, Entity* b)
 {
     return a->getHitBox().getGlobalBounds().intersects(b->getHitBox().getGlobalBounds());
+}
+
 }

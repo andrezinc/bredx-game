@@ -3,10 +3,11 @@
 #include "../../game/Entity/Entity.h"
 #include <vector>
 
+namespace Gerenciador{
 class CollisionManager{
-public:
-    std::vector<Entity*> entidades; 
 private:
+    std::vector<Entity*> entidades; 
+public:
     CollisionManager();
     ~CollisionManager();
     void addEntity(Entity* entity);
@@ -14,4 +15,5 @@ private:
     void tratarColisoes();
     bool verificaColisao(Entity* a, Entity* b);
 };
+} // namespace Gerenciador
 #endif

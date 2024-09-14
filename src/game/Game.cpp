@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
-Game::Game()
+Game::Game():
+janela(Gerenciador::Renderer::getInstance())
 {
     janela->setTamanhoCamera(640, 320);
     if (!loadMapFromFile("../assets/map/map.json", mapData)) {
@@ -25,6 +26,10 @@ Game::Game()
     player = new Entity(playerTextura, 0, 0);
     
     lEntidades.push_back(player);
+
+    for(Entity* entidade : lEntidades){
+        gColisao.addEntity(entidade);
+    }
 }
 
 Game::~Game()
@@ -47,11 +52,9 @@ void Game::executar()
         {
             e->executar(deltaTime);
             e->renderizar();
-            // std::cout << e->getPosicao().x <<  " " << e->getPosicao().y << std::endl;
-            // std::cout << "Player:  " << e->getPosicao().x << " " << e->getPosicao().y << std::endl;
-            // std::cout << "Hitbox:  " << e->getHitBox().getGlobalBounds().getPosition().x << " " << e->getHitBox().getGlobalBounds().getPosition().y << std::endl;
             janela->addDrawable(e->getHitBox(), 3);
         }
+        gColisao.tratarColisoes();
         janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
         // janela->addDrawable(map);
         janela->render();

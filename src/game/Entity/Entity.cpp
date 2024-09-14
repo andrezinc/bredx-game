@@ -113,3 +113,8 @@ void Entity::setSize(const sf::Vector2f& size) {
     sf::Vector2f scale(size.x / currentSize.x, size.y / currentSize.y);
     sprite.setScale(scale);
 }
+
+void Entity::colidiuComTile(Entity*e )
+{
+    std::cout << "Colidiu con entidade" << std::endl;
+}

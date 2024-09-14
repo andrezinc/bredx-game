@@ -25,8 +25,13 @@ public:
     }
 
     void colidiu(Entity* other) override {
-        // Tratamento de colisão com outros objetos
+        other->colidiuComTile(this);
     }
+    void colidiuComTile(Entity* e) override
+    {
+        // std::cout << "Colidiu com tile" << std::endl;
+    }
+
 };
 
 #endif // TILEENTITY_H
