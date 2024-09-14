@@ -36,6 +36,7 @@ void Entity::setPosicao(int x, int y)
 void Entity::setPosicao(sf::Vector2f novaPosicao)
 {
     posicao = novaPosicao;
+    sprite.setPosition(posicao);
 }
 
 sf::Vector2f Entity::getPosicao() const
@@ -97,7 +98,8 @@ void Entity::setHitBoxOffset(sf::Vector2f offset)
 
 void Entity::atualizaHitBox()
 {
-    hitBox.setPosition(sprite.getPosition() - sf::Vector2f(hitBoxSize.x / 2, hitBoxSize.y) + hitBoxOffset);
+    // Ajustar a posição da hitbox para alinhar corretamente com a sprite
+    hitBox.setPosition(sprite.getPosition() - sprite.getOrigin() + hitBoxOffset);
 }
 
 void Entity::setTexture(sf::Texture& textura)

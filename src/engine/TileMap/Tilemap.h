@@ -49,6 +49,8 @@ public:
      */
     bool loadFromMapData(const std::string& tileset, const MapData& mapData);
 
+    std::vector<Entity*> getTiles() const;
+
 };
 
 #endif // TILEMAP_H

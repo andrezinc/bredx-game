@@ -11,6 +11,11 @@ Game::Game()
         std::cout << "Erro ao carregar Tilemap" << std::endl;
     }
 
+    std::vector<Entity*> lTiles = map.getTiles();
+    for(Entity* e :  lTiles) {
+        lEntidades.push_back(e);
+    }
+
     sf::Image playerImage;
     playerImage.create(2, 2, sf::Color::Blue);
     sf::Texture* playerTextura = new  sf::Texture();
@@ -46,10 +51,11 @@ void Game::executar()
         {
             e->executar(deltaTime);
             e->renderizar();
+            // std::cout << e->getPosicao().x <<  " " << e->getPosicao().y << std::endl;
             janela->addDrawable(e->getHitBox(), 3);
         }
         janela->setCentroCamera(player.getPosicao().x, player.getPosicao().y);
-        janela->addDrawable(map);
+        // janela->addDrawable(map);
         janela->render();
     }
 }

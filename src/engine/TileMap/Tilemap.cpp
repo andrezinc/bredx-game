@@ -39,10 +39,10 @@ bool TileMap::loadFromMapData(const std::string& tileset, const MapData& mapData
             quad[2].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, (tv + 1) * mapData.tileSize);
             quad[3].texCoords = sf::Vector2f(tu * mapData.tileSize, (tv + 1) * mapData.tileSize);
 
-            if(layer.collider){
-                TileEntity* novoTile = new TileEntity(tile.x, tile.y, mapData.tileSize,  mapData.tileSize);
+            // if(layer.collider){
+                TileEntity* novoTile = new TileEntity(m_tileset, mapData.tileSize, tu,  tv, tile.x, tile.y);
                 entidades.push_back(novoTile);
-            }
+            // }
         }
     }
 
@@ -59,4 +59,9 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     // Desenha o vertex array
     target.draw(m_vertices, states);
+}
+
+std::vector<Entity*> TileMap::getTiles() const
+{
+    return entidades;
 }
