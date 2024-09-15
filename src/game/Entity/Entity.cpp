@@ -114,7 +114,51 @@ void Entity::setSize(const sf::Vector2f& size) {
     sprite.setScale(scale);
 }
 
-void Entity::colidiuComTile(Entity*e )
+void Entity::colidiuComTile(Entity* tile) // Mudar depois para não usar métodos da sprite
 {
-    std::cout << "Colidiu con entidade" << std::endl;
+    // Obtém as bounding boxes das entidades
+    sf::FloatRect entidadeBounds = this->getHitBox().getGlobalBounds();
+    sf::FloatRect tileBounds = tile->getHitBox().getGlobalBounds();
+
+    // Calcula a interseção entre as bounding boxes
+    sf::FloatRect interseccao;
+    if (entidadeBounds.intersects(tileBounds, interseccao))
+    {
+        // Determina o eixo de menor interseção
+        if (interseccao.width < interseccao.height)
+        {
+            // Colisão horizontal
+            if (entidadeBounds.left < tileBounds.left)
+            {
+                // Colisão pela esquerda do tile
+                this->posicao.x = (tileBounds.left - entidadeBounds.width / 2.0f) + ( this->sprite.getOrigin().x - entidadeBounds.width/ 2.0f);
+            }
+            else
+            {
+                // Colisão pela direita do tile
+                this->posicao.x = ( tileBounds.left + tileBounds.width + entidadeBounds.width / 2.0f) - (this->sprite.getOrigin().x - entidadeBounds.width/ 2.0f);
+            }
+            this->velocidade.x = 0; // Para a velocidade horizontal
+        }
+        else
+        {
+            // Colisão vertical
+            if (entidadeBounds.top < tileBounds.top)
+            {
+                // Colisão pelo topo do tile
+                this->posicao.y = tileBounds.top - entidadeBounds.height + this->sprite.getOrigin().y;
+            }
+            else
+            {
+                // Colisão pela base do tile
+                // this->posicao.y = tileBounds.top + tileBounds.height + entidadeBounds.height - this->sprite.getOrigin().y;
+                this->posicao.y = (tileBounds.top + tileBounds.height) + entidadeBounds.height; 
+            }
+            this->velocidade.y = 0; // Para a velocidade vertical
+        }
+
+        // Atualiza a posição da sprite e da hitbox
+        this->sprite.setPosition(this->posicao);
+        this->atualizaHitBox();
+    }
 }

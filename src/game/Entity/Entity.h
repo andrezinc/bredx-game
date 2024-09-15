@@ -79,6 +79,6 @@ public:
     void setTexture(sf::Texture& textura);
     void setSize(const sf::Vector2f& size);
 
-    virtual void colidiuComTile(Entity* e);
+    virtual void colidiuComTile(Entity* e) ;
 };
 #endif // _ENTITY_H_

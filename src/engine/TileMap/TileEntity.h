@@ -29,7 +29,7 @@ public:
     }
     void colidiuComTile(Entity* e) override
     {
-        // std::cout << "Colidiu com tile" << std::endl;
+        
     }
 
 };
