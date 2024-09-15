@@ -1,22 +1,38 @@
 #include "PhysicsComponent.h"
 #include <iostream>
 
-float PhysicsComponent::gravidade = 980.f;
+float PhysicsComponent::gravidade = 2000.f;
 PhysicsComponent::PhysicsComponent(sf::Vector2f  *position, sf::Vector2f *speed)
 {
     velocidade = speed;
     posicao = position;
+    estaNoChao = false;
 }
 
-void PhysicsComponent::aplicaFisica(float deltaTime) // mudar para x e y o move
+void PhysicsComponent::aplicaFisica(float deltaTime)
 {
-    // Aplica a gravidade
-    // if(posicao->y < 500){
-    //     velocidade->y += gravidade * deltaTime;
-    // }else{
-    //     velocidade->y = 0;
-    // }
-    
+    // Aplica a gravidade se não estiver no chão
+    if (!estaNoChao) {
+        velocidade->y += gravidade * deltaTime;
+    } else {
+        velocidade->y = 0; // Zera a velocidade vertical se estiver no chão
+    }
+
+    // Atualiza a posição com base na velocidade
     posicao->x += velocidade->x * deltaTime;
     posicao->y += velocidade->y * deltaTime;
+
+    // Reseta a flag de pulo após tocar o chão
+    if (estaNoChao) {
+        pulando = false;
+    }
+}
+
+void PhysicsComponent::pular(float forcaPulo)
+{
+    if (estaNoChao) {
+        velocidade->y = -forcaPulo; // Aplica a força do pulo
+        estaNoChao = false; // Marca que não está mais no chão
+        pulando = true; // Marca que está pulando
+    }
 }

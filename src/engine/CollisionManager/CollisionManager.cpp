@@ -41,6 +41,7 @@ void CollisionManager::tratarColisoes()
 {
     for (int i = 0; i < entidades.size(); i++) {
         for (int j = i + 1; j < entidades.size(); j++) {
+            entidades[i]->setNoChao(false);
             if (verificaColisao(entidades[i], entidades[j])) {
                 entidades[i]->colidiu(entidades[j]);
                 entidades[j]->colidiu(entidades[i]);

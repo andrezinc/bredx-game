@@ -17,6 +17,9 @@ private:
     static float gravidade;
     sf::Vector2f *velocidade;
     sf::Vector2f *posicao;
+    bool pulando = false; // Flag se a entidade está pulando
+public:
+    bool estaNoChao;
 public:
     /**
      * @brief Construtora do componente de física
@@ -34,5 +37,6 @@ public:
      */
     void aplicaFisica(float deltaTime);
 
+    void pular(float forcaPulo); // Método para iniciar o pulo
 };
 #endif // _FISICA_H

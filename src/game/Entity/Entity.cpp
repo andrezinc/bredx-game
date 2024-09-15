@@ -46,6 +46,11 @@ sf::Vector2f Entity::getPosicao() const
 
 void Entity::executar(float deltaTime)
 {
+
+    fisica.aplicaFisica(deltaTime);
+    sprite.setPosition(posicao);
+    atualizaHitBox();
+
     float speed  = 200.f; // pixels per second
 
     // Movimentação básica para testes
@@ -63,9 +68,10 @@ void Entity::executar(float deltaTime)
     else
         velocidade.x = 0.f;
 
-    fisica.aplicaFisica(deltaTime);
-    sprite.setPosition(posicao);
-    atualizaHitBox();
+    // Verifica a entrada do teclado para pular
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        fisica.pular(1000.f);
+    }
 }
 
 void Entity::criarHitBox()
@@ -147,6 +153,7 @@ void Entity::colidiuComTile(Entity* tile) // Mudar depois para não usar método
             {
                 // Colisão pelo topo do tile
                 this->posicao.y = tileBounds.top - entidadeBounds.height + this->sprite.getOrigin().y;
+                this->setNoChao(true);
             }
             else
             {
@@ -161,4 +168,10 @@ void Entity::colidiuComTile(Entity* tile) // Mudar depois para não usar método
         this->sprite.setPosition(this->posicao);
         this->atualizaHitBox();
     }
+}
+
+
+void Entity::setNoChao(bool noChao)
+{
+    fisica.estaNoChao = noChao;
 }
