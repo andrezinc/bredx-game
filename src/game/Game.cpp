@@ -26,7 +26,7 @@ janela(Gerenciador::Renderer::getInstance())
     player = new Player(playerTextura, 0, 0, 10, 2, 10);
     
     lEntidades.push_back(player);
-
+    
     for(Entity* entidade : lEntidades){
         gColisao.addEntity(entidade);
     }
@@ -54,7 +54,7 @@ void Game::executar()
         {
             e->executar(deltaTime);
             e->renderizar();
-            janela->addDrawable(e->getHitBox(), 3);
+            // janela->addDrawable(e->getHitBox(), 3);
         }
         janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
         // janela->addDrawable(map);

@@ -127,7 +127,8 @@ void Entity::colidiuComTile(Entity* tile) // Mudar depois para não usar método
             if (entidadeBounds.top < tileBounds.top)
             {
                 // Colisão pelo topo do tile
-                this->posicao.y = tileBounds.top - entidadeBounds.height + this->sprite.getOrigin().y;
+                // (topo do tile) - (origem da entidade)
+                this->posicao.y = (tileBounds.top - entidadeBounds.height) + (this->sprite.getOrigin().y + 2.f);
                 this->setNoChao(true);
             }
             else
