@@ -23,7 +23,7 @@ janela(Gerenciador::Renderer::getInstance())
     playerTextura.loadFromImage(playerImage);
     
     // Arrumar essas gambiarras depois =============================================================
-    player = new Entity(playerTextura, 0, 0);
+    player = new Player(playerTextura, 0, 0, 10, 2, 10);
     
     lEntidades.push_back(player);
 

@@ -2,6 +2,7 @@
 #include "../engine/Renderer/Renderer.h"
 #include "../engine/CollisionManager/CollisionManager.h"
 #include "./Entity/Entity.h"
+#include "./Entity/Character/Player/Player.h"
 #include "../engine/TileMap/TileMap.h"
 #include "../engine/TileMap/MapLoader.h"
 #include <vector>
@@ -15,7 +16,7 @@ private:
     sf::Clock clock;
     float deltaTime;
 
-    Entity *player;
+    Player *player;
     std::vector<Entity*> lEntidades;    
 public:
     Game();
