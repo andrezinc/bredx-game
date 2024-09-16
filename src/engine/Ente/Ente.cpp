@@ -17,7 +17,8 @@ Ente::Ente():
 Ente::Ente(sf::Texture& figura):
     id(++cont)
 {
-    // std::cout << "Construtora com parametro(ente)" << std::endl;
+    // std::cout << "Construtora com parametro(ente):  " << id << std::endl;
+
     sprite.setTexture(figura);
 }
 Ente::~Ente()

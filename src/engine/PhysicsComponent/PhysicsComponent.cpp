@@ -6,7 +6,7 @@ PhysicsComponent::PhysicsComponent(sf::Vector2f  *position, sf::Vector2f *speed)
 {
     velocidade = speed;
     posicao = position;
-    estaNoChao = false;
+    estaNoChao = true;
 }
 
 

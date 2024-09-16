@@ -1,12 +1,12 @@
 #ifndef _COLLISIONMANAGER_H
 #define _COLLISIONMANAGER_H
 #include "../../game/Entity/Entity.h"
-#include <vector>
+#include <unordered_set>
 
 namespace Gerenciador{
 class CollisionManager{
 private:
-    std::vector<Entity*> entidades; 
+    std::unordered_set<Entity*> entidades; 
 public:
     CollisionManager();
     ~CollisionManager();

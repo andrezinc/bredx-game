@@ -38,6 +38,7 @@ Game::~Game()
 
 void Game::executar()
 {
+
     while(janela->isOpen())
     {
         sf::Event evento;
@@ -48,13 +49,13 @@ void Game::executar()
         }
         deltaTime = clock.restart().asSeconds();
 
+        gColisao.tratarColisoes();
         for(Entity* e : lEntidades)
         {
             e->executar(deltaTime);
             e->renderizar();
             janela->addDrawable(e->getHitBox(), 3);
         }
-        gColisao.tratarColisoes();
         janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
         // janela->addDrawable(map);
         janela->render();

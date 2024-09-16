@@ -16,7 +16,7 @@ void CollisionManager::addEntity(Entity* entity)
     if(entity == nullptr){
         std::cout << "Ponteiro nulo, nao foi possivel adicionar entidade!" << std::endl;
     } 
-    entidades.push_back(entity);
+    entidades.insert(entity);
 }
 
 
@@ -27,24 +27,19 @@ void CollisionManager::removeEntity(Entity* entity)
         return;
     }
 
-    for (std::vector<Entity*>::iterator it = entidades.begin(); it != entidades.end(); ++it) {
-        if (*it == entity) {
-            entidades.erase(it);
-            return;
-        }
-    }
-
-    std::cout << "Entidade nao encontrada!" << std::endl;
+    entidades.erase(entity);
 }
 
 void CollisionManager::tratarColisoes()
 {
-    for (int i = 0; i < entidades.size(); i++) {
-        for (int j = i + 1; j < entidades.size(); j++) {
-            entidades[i]->setNoChao(false); // Arrumar bug do NOCHAO
-            if (verificaColisao(entidades[i], entidades[j])) {
-                entidades[i]->colidiu(entidades[j]);
-                entidades[j]->colidiu(entidades[i]);
+    for(auto& entidade : entidades){
+        entidade->setNoChao(false);
+        for(auto& outra : entidades){
+            if(entidade != outra){
+                if(verificaColisao(entidade, outra)){
+                    entidade->colidiu(outra);
+                    outra->colidiu(entidade);
+                }
             }
         }
     }
