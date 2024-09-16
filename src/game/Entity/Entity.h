@@ -50,7 +50,6 @@ public:
      */
     virtual void executar(float deltaTime);
 
-    virtual void colidiu(Entity* other){}; 
     sf::RectangleShape& getHitBox()  { return hitBox; };
     void setPosicao(int x, int y);
     void setPosicao(sf::Vector2f novaPosicao);
@@ -79,8 +78,10 @@ public:
     void setTexture(sf::Texture& textura);
     void setSize(const sf::Vector2f& size);
 
+    virtual void colidiu(Entity* other){}; 
     virtual void colidiuComTile(Entity* e);
 
     void setNoChao(bool noChao);
+    bool getNoChao() const;
 };
 #endif // _ENTITY_H_

@@ -43,37 +43,31 @@ sf::Vector2f Entity::getPosicao() const
 {
     return posicao;
 }
-
 void Entity::executar(float deltaTime)
 {
+    // Movimentação básica para testes
+    velocidade.x = 0.f; // Reseta a velocidade horizontal
+
+    float speed  = 200.f; // pixels per second
+
+    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    //     velocidade.y -= speed; // Mover para cima
+    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    //     velocidade.y += speed;  // Mover para baixo
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        velocidade.x -= speed; // Mover para a esquerda
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        velocidade.x += speed;  // Mover para a direita
+
+    // Verifica a entrada do teclado para pular
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        fisica.pular(300.f);
+    }
 
     fisica.aplicaFisica(deltaTime);
     sprite.setPosition(posicao);
     atualizaHitBox();
-
-    float speed  = 200.f; // pixels per second
-
-    // Movimentação básica para testes
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        velocidade.y = -speed; // Mover para cima
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        velocidade.y = speed;  // Mover para baixo
-    else
-        velocidade.y = 0.f;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        velocidade.x = -speed; // Mover para a esquerda
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        velocidade.x = speed;  // Mover para a direita
-    else
-        velocidade.x = 0.f;
-
-    // Verifica a entrada do teclado para pular
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        fisica.pular(1000.f);
-    }
 }
-
 void Entity::criarHitBox()
 {
     hitBox.setFillColor(sf::Color::Transparent); // Tornar a hitbox visível sem preenchimento
@@ -174,4 +168,9 @@ void Entity::colidiuComTile(Entity* tile) // Mudar depois para não usar método
 void Entity::setNoChao(bool noChao)
 {
     fisica.estaNoChao = noChao;
+}
+
+bool Entity::getNoChao() const
+{
+    return fisica.estaNoChao;;
 }
