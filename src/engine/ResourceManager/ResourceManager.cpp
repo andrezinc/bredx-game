@@ -81,4 +81,20 @@ sf::Image& ResourceManager::getImage(const std::string& id)
     // Colocar retorno de placeHolder caso a imagem não exista
     return imagens.at(id);
 }
+
+bool ResourceManager::loadSons(const std::string& id, const std::string& filename)
+{
+    sf::SoundBuffer buffer;
+    if(buffer.loadFromFile(filename)){
+        sons[id] = buffer;
+        return true;
+    }
+    std::cerr << "Erro ao carregar som: " << filename  << std::endl;
+    return false;
 }
+
+sf::SoundBuffer& ResourceManager::getSom(const std::string& id)
+{
+    return  sons.at(id);
+}
+}// end namespace Gerenciador

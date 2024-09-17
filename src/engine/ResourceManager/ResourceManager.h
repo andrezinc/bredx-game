@@ -2,6 +2,7 @@
 #define _TEXTUREMANAGER_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <unordered_map>
 #include <string>
 
@@ -17,10 +18,12 @@ namespace Gerenciador{
  */
 class ResourceManager{
 private:
-    static ResourceManager *singleton; ///< Instância singleton do gerenciador de recursos
+    static ResourceManager *singleton;                     ///< Instância singleton do gerenciador de recursos
     std::unordered_map<std::string, sf::Texture> texturas; ///< Conjunto de texturas (chave, textura)
-    std::unordered_map<std::string, sf::Font> fontes;///< Conjunto de fontes (chave, fonte)
-    std::unordered_map<std::string, sf::Image> imagens;///< Conjunto de fontes (chave, fonte)
+    std::unordered_map<std::string, sf::Font> fontes;      ///< Conjunto de fontes (chave, fonte)
+    std::unordered_map<std::string, sf::Image> imagens;    ///< Conjunto de fontes (chave, fonte)
+    std::unordered_map<std::string, sf::SoundBuffer> sons; ///< Conjunto de sons (chave, som)
+
     ResourceManager(){}; ///< Construtora privada para evitar outras instâncias
     ~ResourceManager(){ delete singleton; };
 public:
@@ -64,7 +67,17 @@ public:
      * @todo Adicionar poka-yoke caso a imagem não possa ser carregada
      */
     bool loadImage(const std::string& id, const std::string& filename);
-    
+
+    /**
+     * @brief Carrega sons e armazena com um identificador
+     * 
+     * @param id identificador do som a ser usado posteriormente
+     * @param filename caminho relativo para o arquivo do som
+     * @return true caso o arquivo seja carregado 
+     * @return false caso tenha falhado o carregamento do arquivo 
+     */
+    bool loadSons(const std::string& id, const std::string& filename);
+
     /**
      * @brief Retorna uma textura posteriormente carregada, a partir de um identificador.
      * @param id Identificador da textura já armazenada.
@@ -85,6 +98,13 @@ public:
      * @return Referência a imagem relativa ao ID.
      */
     sf::Image& getImage(const std::string& id);
+
+    /**
+     * @brief Retorna um som posteriormente carregado, a partir de um identificador.
+     * @param id Identificador do som já armazenado.
+     * @return Referência ao som relativa ao ID.
+     */
+    sf::SoundBuffer& getSom(const std::string& id);
 };
 }
 #endif

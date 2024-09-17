@@ -20,6 +20,7 @@ class Game
 {
 private:
     Gerenciador::Renderer* janela;          ///< Ponteiro para o renderizador (Renderer)
+    Gerenciador::ResourceManager *gRecursos; ///< Instância do gerenciador de recursos 
     Gerenciador::CollisionManager gColisao; ///< Instância do gerenciador de colisões
     TileEngine::MapData mapData;            ///< Dados do mapa carregados
     TileEngine::TileMap map;                ///< Instância do mapa de tiles

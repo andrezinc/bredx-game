@@ -1,8 +1,12 @@
 #include "Game.h"
 #include <iostream>
+
 Game::Game():
-janela(Gerenciador::Renderer::getInstance())
+janela(Gerenciador::Renderer::getInstance()),
+gRecursos(Gerenciador::ResourceManager::getInstance())
 {
+    gRecursos->loadSons("menu", "../assets/musics/musicaMenu.mp3");
+    gRecursos->loadTexture("jogador", "../assets/textures/protagonista.png");
     janela->setTamanhoCamera(640, 320);
     if (!TileEngine::loadMapFromFile("../assets/map/map.json", mapData)) {
         std::cout << "Erro ao carregar mapa" << std::endl;
@@ -23,8 +27,11 @@ janela(Gerenciador::Renderer::getInstance())
     playerTextura.loadFromImage(playerImage);
     
     // Arrumar essas gambiarras depois =============================================================
-    player = new Player(playerTextura, 0, 0, 10, 2, 10);
-    
+    player = new Player(gRecursos->getTexture("jogador"), 0, 0, 10, 2, 10);
+    // player->setHitBoxOffset(sf::Vector2f(5, 5));
+    // player->setHitBoxSize(sf::Vector2f(16, 16));
+    player->setSize(sf::Vector2f(32, 32));
+    player->setPosicao(0, 0);
     lEntidades.push_back(player);
     
     for(Entity* entidade : lEntidades){
@@ -39,7 +46,10 @@ Game::~Game()
 
 void Game::executar()
 {
-
+    sf::Sound musica;
+    musica.setBuffer(gRecursos->getSom("menu"));
+    musica.play();
+    musica.setLoop(true);
     while(janela->isOpen())
     {
         sf::Event evento;
