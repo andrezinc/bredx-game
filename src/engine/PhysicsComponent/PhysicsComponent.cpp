@@ -2,11 +2,12 @@
 #include <iostream>
 
 float PhysicsComponent::gravidade = 980.f;
-PhysicsComponent::PhysicsComponent(sf::Vector2f  *position, sf::Vector2f *speed)
+PhysicsComponent::PhysicsComponent(sf::Vector2f  *position, sf::Vector2f *speed, float fPulo)
 {
     velocidade = speed;
     posicao = position;
     estaNoChao = true;
+    forcaPulo = fPulo;
 }
 
 

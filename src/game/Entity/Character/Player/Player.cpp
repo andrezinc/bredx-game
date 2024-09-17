@@ -4,30 +4,27 @@ Player::Player(sf::Texture& textura, int x, int y, int life, int atack, int poin
        :Character(textura, x, y,  life, atack)
 {
     pontos = points;
+    velocidadeHorizontal = 200.f;
 }
-Player::~Player()
-{}
 
 void Player::executar(float deltaTime)
 {
-    // Movimentação básica para testes
-    velocidade.x = 0.f; // Reseta a velocidade horizontal
+    velocidade.x = 0.f; // Reseta a velocidade horizontal para não ter aceleração infinita
 
-    float speed  = 200.f; // pixels per second
-
-    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    //     velocidade.y -= speed; // Mover para cima
-    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    //     velocidade.y += speed;  // Mover para baixo
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        velocidade.x -= speed; // Mover para a esquerda
+        velocidade.x -= velocidadeHorizontal; // Mover para a esquerda
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        velocidade.x += speed;  // Mover para a direita
+        velocidade.x += velocidadeHorizontal;  // Mover para a direita
 
     // Verifica a entrada do teclado para pular
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        fisica.pular(300.f);
+        pular(); // atualizar essa função
     }
 
-    Character::executar(deltaTime);
+    Character::executar(deltaTime); // Chama o executar da classe pai que aplica a movimentação
+}
+
+void Player::pular()
+{
+    fisica.pular();
 }

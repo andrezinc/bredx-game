@@ -6,11 +6,6 @@ Character::Character(sf::Texture &textura, int x, int y,  int life, int atack)
     vida = life;
     ataque = atack;
 }
-Character::~Character()
-{
-
-}
-
 void Character::executar(float deltaTime)
 {
     // Executa lógica padra para toda entidade;

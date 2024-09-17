@@ -19,6 +19,7 @@ private:
     sf::Vector2f *posicao;    //< Ponteiro para a posição da entidade que agrega o componente
     bool estaNoChao;          //< Flag que indica se a entidade está colidindo verticalmente com o topo de uma plataforma
     bool pulando;             //< Flag que indica se a entidade está pulando (utilizada para pulo duplo)
+    float forcaPulo;          //<
 public:
     /**
      * @brief Construtor do componente de física.
@@ -27,7 +28,7 @@ public:
      * @param position Ponteiro para a posição da entidade.
      * @param speed Ponteiro para a velocidade da entidade.
      */
-    PhysicsComponent(sf::Vector2f *position = nullptr, sf::Vector2f *speed = nullptr);
+    PhysicsComponent(sf::Vector2f *position = nullptr, sf::Vector2f *speed = nullptr, float fPulo = 300.f);
 
     /**
      * @brief Destrutor da classe PhysicsComponent.
@@ -62,7 +63,7 @@ public:
      * Este método aplica uma força de pulo à entidade, iniciando o movimento de pulo.
      * @param forcaPulo A força aplicada ao pulo.
      */
-    void pular(float forcaPulo);
+    void pular(float forcaPulo = 300.f);
 };
 
 #endif // _FISICA_H
