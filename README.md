@@ -1,2 +1,2 @@
-# Prodislexos Game
-Jogo de plataforma criado para desenvolver as habilidades técnicas e artisticas da dupla. 
+# Jogo Prodislexos
+Jogo de plataforma 2d com a temática cybepunk desenvolvido em conjunto com amigos artistas
