@@ -28,6 +28,16 @@ void PhysicsComponent::aplicaFisica(float deltaTime)
     }
 }
 
+void PhysicsComponent::setNoChao(bool estado)
+{
+    estaNoChao = estado;
+}
+
+bool PhysicsComponent::getNoChao()const
+{
+    return estaNoChao;
+}
+
 void PhysicsComponent::pular(float forcaPulo)
 {
     if (estaNoChao) {

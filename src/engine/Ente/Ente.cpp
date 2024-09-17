@@ -41,3 +41,14 @@ void Ente::setTexture(sf::Texture& textura)
 {
     sprite.setTexture(textura);
 }
+
+void Ente::setSize(const sf::Vector2f& size) {
+    sf::Vector2f currentSize(sprite.getLocalBounds().width, sprite.getLocalBounds().height);
+    sf::Vector2f scale(size.x / currentSize.x, size.y / currentSize.y);
+    sprite.setScale(scale);
+}
+
+sf::Vector2f Ente::getOrigin() const
+{
+    return sprite.getOrigin();
+}
