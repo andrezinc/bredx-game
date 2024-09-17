@@ -1,5 +1,7 @@
 #include "TileMap.h"
 
+
+namespace TileEngine {
 TileMap::TileMap()
 {
     entidades.clear();
@@ -64,4 +66,5 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 std::vector<Entity*> TileMap::getTiles() const
 {
     return entidades;
+}
 }

@@ -39,12 +39,14 @@ public:
 
     /**
      * @brief Destruidor da classe Entity.
+     * 
      * O destruidor é virtual para garantir a destruição correta das classes derivadas.
      */
     virtual ~Entity() {}
 
     /**
      * @brief Método para executar a lógica da entidade.
+     * 
      * Este método deve ser implementado pelas classes derivadas para definir o comportamento específico da entidade.
      * @param deltaTime variação do tempo para aplicação das lógicas de gravidade, movimento, etc. 
      */
@@ -114,6 +116,7 @@ public:
 
     /**
      * @brief Método virtual para lidar com colisões com outras entidades.
+     * 
      * Este método deve ser sobrescrito pelas classes derivadas para definir o comportamento específico quando uma colisão ocorre.
      * @param other Ponteiro para a outra entidade que colidiu.
      */
@@ -121,6 +124,7 @@ public:
 
     /**
      * @brief Método virtual para lidar com colisões com tiles.
+     * 
      * Este método deve ser sobrescrito pelas classes derivadas para definir o comportamento específico quando uma colisão com um tile ocorre.
      * @param e Ponteiro para a entidade tile que colidiu.
      */

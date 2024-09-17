@@ -4,9 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
-
+/**
+ * @brief Componentes de funções básicas do jogo como renderização, carregamento de recursos, etc
+ */
+namespace Gerenciador{
 /**
  * @class Renderer
+ * 
  * @brief Gerencia a renderização de elementos gráficos.
  * 
  * A classe Renderer é responsável por controlar a janela de renderização, 
@@ -19,7 +23,6 @@
  * 
  * @author Vitor-tml
 */
-namespace Gerenciador{
 class Renderer {
 private:
     static int camadaJanela;

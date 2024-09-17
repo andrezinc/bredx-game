@@ -5,7 +5,7 @@
 
 /**
  * @class Player
- * @brief Representa o jogador no jogo, herdando de Character.
+ * @brief Representa o jogador no jogo
  *
  * A classe Player gerencia o comportamento específico do jogador,
  * incluindo movimento horizontal e a habilidade de pular.

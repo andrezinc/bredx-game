@@ -5,8 +5,8 @@
 #include <unordered_map>
 #include <string>
 
+namespace Gerenciador{
 /**
- * @class ResourceManager
  * @brief Gerencia o carregamento e acesso de recursos, como texturas e fontes.
  * 
  * O ResourceManager é um singleton responsável por carregar, armazenar e fornecer acesso a texturas e fontes
@@ -15,7 +15,6 @@
  * 
  * @author Vitor-tml
  */
-namespace Gerenciador{
 class ResourceManager{
 private:
     static ResourceManager *singleton; ///< Instância singleton do gerenciador de recursos

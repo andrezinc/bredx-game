@@ -4,7 +4,7 @@ Game::Game():
 janela(Gerenciador::Renderer::getInstance())
 {
     janela->setTamanhoCamera(640, 320);
-    if (!loadMapFromFile("../assets/map/map.json", mapData)) {
+    if (!TileEngine::loadMapFromFile("../assets/map/map.json", mapData)) {
         std::cout << "Erro ao carregar mapa" << std::endl;
     }
 
@@ -34,6 +34,7 @@ janela(Gerenciador::Renderer::getInstance())
 
 Game::~Game()
 {
+    delete player;
 }
 
 void Game::executar()

@@ -22,24 +22,28 @@ protected:
 public:
     /**
      * @brief Construtora da classe-base Ente.
+     * 
      * Inicia o atríbuto id e inicia "figura" com um place holder.
      */
     Ente();
     
     /**
      * @brief Construtora com parâmetros da classe base Ente
+     * 
      * Inicia o atríbuto id define a textura do sprite
      */
     Ente(sf::Texture& figura);
     
     /**
      * @brief Destrutora da classe-base Ente.
+     * 
      * Apenas para criar explicitamente o método.
      */
     virtual ~Ente();
     
     /**
      * @brief Método que renderiza o objeto na tela.
+     * 
      * Adiciona a sprite do objeto na fila de renderização do gerenciador gráfico.
      * @param camada ordem de renderização na tela, quando maior mais pra frente.
      */
