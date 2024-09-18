@@ -6,6 +6,8 @@
 #include "./Entity/Character/Player/Player.h" 
 #include "../engine/TileMap/TileMap.h"
 #include "../engine/TileMap/MapLoader.h"
+#include "../engine/SceneManager/SceneManager.h"
+#include "./Scenes/GameScene/GameScene.h"
 #include <vector> 
 
 /**
@@ -19,17 +21,9 @@
 class Game
 {
 private:
-    Gerenciador::Renderer* janela;          ///< Ponteiro para o renderizador (Renderer)
-    Gerenciador::ResourceManager *gRecursos; ///< Instância do gerenciador de recursos 
-    Gerenciador::CollisionManager gColisao; ///< Instância do gerenciador de colisões
-    TileEngine::MapData mapData;            ///< Dados do mapa carregados
-    TileEngine::TileMap map;                ///< Instância do mapa de tiles
-    sf::Clock clock;                        ///< Relógio para medir o tempo decorrido
-    float deltaTime;                        ///< Tempo decorrido desde o último frame
-
-    Player* player;                         ///< Ponteiro para o jogador (Player)
-    std::vector<Entity*> lEntidades;        ///< Lista de entidades no jogo
-    
+    Gerenciador::Renderer *janela;           ///< Ponteiro para o renderizador (Renderer)
+    SceneManager *gCenas;
+    GameScene *cenaJogo;
 public:
     /**
      * @brief Construtor da classe Game.
