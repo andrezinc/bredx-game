@@ -13,7 +13,7 @@ void CreditsScene::inicializar() {
     }
 
     creditsText.setFont(font);
-    creditsText.setString("Creditos:\n\nDesenvolvedor: Capivara Galopante\n\nMusica: Jhonny Mondback\n\nGraficos: Brebs Dislexa");
+    creditsText.setString("Creditos:\n\nDesenvolvedor: Capivara Galopante\n\nGraficos: Brebs Dislexa\n\nMusica: Jhonny Mondback");
     creditsText.setCharacterSize(24);
     creditsText.setFillColor(sf::Color::White);
     
