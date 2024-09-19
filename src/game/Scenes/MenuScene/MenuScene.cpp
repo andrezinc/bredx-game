@@ -73,7 +73,7 @@ void MenuScene::selecionarBotao(int index) {
     selectedButton = index;
     for (int i = 0; i < 2; i++) {
         if (i == selectedButton) {
-            button[i].setColor(sf::Color::Red); // Destacar o botão selecionado
+            button[i].setColor(sf::Color::Yellow); // Destacar o botão selecionado
         } else {
             button[i].setColor(sf::Color::White); // Botões não selecionados em branco
         }
