@@ -1,5 +1,4 @@
 #include "CreditsScene.h"
-#include "../MenuScene/MenuScene.h"
 #include <iostream>
 #include <cmath>
 
@@ -8,6 +7,8 @@ CreditsScene::CreditsScene() : elapsedTime(0) {}
 CreditsScene::~CreditsScene() {}
 
 void CreditsScene::inicializar() {
+    janela->setCentroCamera(janela->getTamanho().x/2,janela->getTamanho().y/2);
+    janela->setTamanhoCamera(janela->getTamanho().x,janela->getTamanho().y);
     if (!font.loadFromFile("../assets/fonts/fonte.ttf")) { // Substitua pelo caminho do seu arquivo de fonte
         std::cout << "Erro ao carregar fonte" << std::endl;
     }

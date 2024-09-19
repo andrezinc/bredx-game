@@ -10,7 +10,8 @@ MenuScene::~MenuScene() {}
 
 void MenuScene::inicializar() {
     std::cout << "Inicializando MenuScene" << std::endl;
-
+    janela->setCentroCamera(janela->getTamanho().x/2,janela->getTamanho().y/2);
+    janela->setTamanhoCamera(janela->getTamanho().x,janela->getTamanho().y);
     gRecursos->loadTexture("menu", "../assets/textures/menu.png");
     gRecursos->loadTexture("butao", "../assets/textures/butao.png");
     gRecursos->loadSons("menu", "../assets/musics/loop.mp3");

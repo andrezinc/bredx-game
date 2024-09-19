@@ -81,7 +81,10 @@ void GameScene::renderizar()
 
 void GameScene::processarEventos(const sf::Event &evento)
 {
-    
+    if (evento.type == sf::Event::KeyPressed && evento.key.code == sf::Keyboard::Escape) {
+        // Voltar para o menu ou outra cena quando a tecla Escape for pressionada
+        SceneManager::getInstance()->mudarCena(std::make_unique<MenuScene>());
+    }
 }
 
 void GameScene::finalizar(){}
