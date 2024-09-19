@@ -1,12 +1,14 @@
 #include "MenuScene.h"
 #include "../GameScene/GameScene.h"
 #include "../../../engine/SceneManager/SceneManager.h"
+#include <iostream>
 
 MenuScene::MenuScene() : selectedButton(0) {}
 
 MenuScene::~MenuScene() {}
 
 void MenuScene::inicializar() {
+    std::cout << "Inicializando MenuScene" << std::endl;
 
     gRecursos->loadTexture("menu", "../assets/textures/menu.png");
     gRecursos->loadTexture("butao", "../assets/textures/butao.png");
@@ -44,9 +46,9 @@ void MenuScene::processarEventos(const sf::Event &evento) {
     std::cout << "Processando eventos" << std::endl;
     if (evento.type == sf::Event::KeyPressed) {
         if (evento.key.code == sf::Keyboard::Up) {
-            selecionarBotao((selectedButton + 1) % 2);
+            selecionarBotao((selectedButton - 1 + 2) % 2); // Corrigido: Mover para cima
         } else if (evento.key.code == sf::Keyboard::Down) {
-            selecionarBotao((selectedButton + 1) % 2);
+            selecionarBotao((selectedButton + 1) % 2); // Corrigido: Mover para baixo
         } else if (evento.key.code == sf::Keyboard::Enter) {
             if (selectedButton == 0) {
                 // Trocar para a cena do jogo

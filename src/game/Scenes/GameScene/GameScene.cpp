@@ -54,11 +54,16 @@ void GameScene::executar()
 {
     deltaTime = tempo.restart().asSeconds();
 
+    if (deltaTime > 0.1f) {
+        deltaTime = 0.1f;
+    }
     gColisao.tratarColisoes();
     for(Entity* e : lEntidades)
     {
         e->executar(deltaTime);
     }
+    std::cout << player->getPosicao().x << " " << player->getPosicao().y << std::endl;
+
 }
 
 void GameScene::renderizar()
