@@ -1,5 +1,6 @@
 #include "MenuScene.h"
 #include "../GameScene/GameScene.h"
+#include "../CreditsScene/CreditsScene.h"
 #include "../../../engine/SceneManager/SceneManager.h"
 #include <iostream>
 
@@ -57,7 +58,7 @@ void MenuScene::processarEventos(const sf::Event &evento) {
             } else if (selectedButton == 1) {
                 std::cout << "Entrando nos créditos" << std::endl;
                 // Trocar para a cena de créditos
-                // SceneManager::getInstance()->mudarCena(std::make_unique<CreditsScene>());
+                SceneManager::getInstance()->mudarCena(std::make_unique<CreditsScene>());
             }
         }
     }
