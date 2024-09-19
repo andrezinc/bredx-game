@@ -12,7 +12,7 @@ GameScene::~GameScene()
 
 void GameScene::inicializar()
 {
-    gRecursos->loadSons("menu", "../assets/musics/musicaMenu.mp3");
+    gRecursos->loadSons("game", "../assets/musics/musicaMenu.mp3");
     gRecursos->loadTexture("jogador", "../assets/textures/protagonista.png");
     janela->setTamanhoCamera(640, 320);
     if (!TileEngine::loadMapFromFile("../assets/map/map.json", mapData)) {
@@ -45,7 +45,7 @@ void GameScene::inicializar()
         gColisao.addEntity(entidade);
     }
 
-    musica.setBuffer(gRecursos->getSom("menu"));
+    musica.setBuffer(gRecursos->getSom("game"));
     musica.play();
     musica.setLoop(true);
 }
@@ -70,8 +70,8 @@ void GameScene::renderizar()
     }
 
     janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
-        // janela->addDrawable(map);
-        janela->render();
+    // janela->addDrawable(map);
+    janela->render();
 }
 
 void GameScene::processarEventos(const sf::Event &evento)

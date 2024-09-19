@@ -5,9 +5,7 @@ Game::Game():
     janela(Gerenciador::Renderer::getInstance()),
     gCenas(SceneManager::getInstance())
 {
-    // cenaJogo = new GameScene;
-    // cenaJogo->inicializar();
-
+    
 }
 
 Game::~Game()
@@ -17,14 +15,17 @@ Game::~Game()
 
 void Game::executar()
 {
-    gCenas->empilharCena(std::make_unique<GameScene>());
+    gCenas->empilharCena(std::make_unique<MenuScene>());
     while(janela->isOpen())
     {
         sf::Event evento;
+        while(janela->pollEvent(evento)) // Importante pegar os eventos antes de tratar!
+        {
         if(evento.type == sf::Event::Closed)
             janela->close();
         else
             gCenas->processarEventosCenaAtual(evento);
+        }
         gCenas->atualizarCenaAtual();
         gCenas->renderizarCenaAtual();
     }

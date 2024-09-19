@@ -8,6 +8,7 @@
 #include "../engine/TileMap/MapLoader.h"
 #include "../engine/SceneManager/SceneManager.h"
 #include "./Scenes/GameScene/GameScene.h"
+#include "./Scenes/MenuScene/MenuScene.h"
 #include <vector> 
 
 /**

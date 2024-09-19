@@ -11,6 +11,7 @@ Renderer::Renderer(int largura, int altura, const std::string &titulo)
       camera(sf::FloatRect(0, 0, largura, altura)) // Inicia câmera com tamanho da janela
 {
     janela.setFramerateLimit(60);
+    render(); // Chama render para limpar a janela com a cor preta inicialmente
 }
 
 Renderer::~Renderer(){
@@ -20,7 +21,7 @@ Renderer::~Renderer(){
 Renderer* Renderer::getInstance(int largura, int altura, const std::string& titulo)
 {
     // std::cout << largura << " " << altura << " " << titulo << std::endl;
-
+    
     if(singleton == nullptr)
         singleton = new Renderer(largura, altura, titulo);
     
