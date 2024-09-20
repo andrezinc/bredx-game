@@ -64,7 +64,11 @@ void Renderer::render()
     );
 
     for (const auto &drawable : drawables){
-        janela.draw(*drawable.first);
+        if (shaderCarregado) {
+            janela.draw(*drawable.first, &shader); // Aplica o shader se estiver carregado
+        } else {
+            janela.draw(*drawable.first); // Desenha sem shader se não estiver carregado
+        }
     }
 
     janela.display();
@@ -84,6 +88,20 @@ bool Renderer::pollEvent(sf::Event &evento){
 
 sf::Vector2u Renderer::getTamanho() const { 
     return janela.getSize();
+}
+
+void Renderer::carregarShaders()
+{   
+    std::string  path = "../assets/shaders/shader.frag";
+    if (shader.loadFromFile(path, sf::Shader::Fragment)) {
+        shaderCarregado = true; // Define como true se o shader for carregado com sucesso
+    } else {
+        std::cerr << "Erro ao carregar shaders: " << path << std::endl;
+        shaderCarregado = false; // Define como false em caso de falha
+    }
+
+    shader.setUniform("texture", sf::Shader::CurrentTexture);
+    shader.setUniform("resolution", sf::Vector2f(janela.getSize().x, janela.getSize().y));
 }
 
 }

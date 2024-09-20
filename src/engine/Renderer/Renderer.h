@@ -30,6 +30,8 @@ private:
     sf::RenderWindow janela;
     sf::View camera;
     std::vector<std::pair<const sf::Drawable*, int>> drawables; ///< vetor de pares de int e drawable
+    sf::Shader shader;
+    bool shaderCarregado; // Adicione esta linha no início da classe
     Renderer(int largura, int altura, const std::string& titulo);
     ~Renderer();
 public:
@@ -99,6 +101,8 @@ public:
      * @return sf::Vector2u (.x e .y)
      */
     sf::Vector2u getTamanho() const;
+
+    void carregarShaders();
 };
 // }
 }

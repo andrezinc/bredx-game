@@ -48,6 +48,8 @@ void GameScene::inicializar()
     musica.setBuffer(gRecursos->getSom("game"));
     musica.play();
     musica.setLoop(true);
+
+    janela->carregarShaders();
 }
 
 void GameScene::executar()
