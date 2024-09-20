@@ -9,11 +9,14 @@ MenuScene::MenuScene() : selectedButton(0) {}
 MenuScene::~MenuScene() {}
 
 void MenuScene::inicializar() {
+
+    janela->tirarShader();
     std::cout << "Inicializando MenuScene" << std::endl;
     janela->setCentroCamera(janela->getTamanho().x/2,janela->getTamanho().y/2);
     janela->setTamanhoCamera(janela->getTamanho().x,janela->getTamanho().y);
     gRecursos->loadTexture("menu", "../assets/textures/menu.png");
     gRecursos->loadTexture("butao", "../assets/textures/butao.png");
+    gRecursos->loadTexture("select", "../assets/textures/selecionado.png");
     gRecursos->loadSons("menu", "../assets/musics/loop.mp3");
 
     background.setTexture(gRecursos->getTexture("menu"));
@@ -23,6 +26,10 @@ void MenuScene::inicializar() {
         button[i].setTexture(gRecursos->getTexture("butao"));
         button[i].setPosition(495, i * 53 + 10 + 364);
         button[i].setTextureRect(sf::IntRect(0, i * 43, 290, 43));
+
+        select[i].setTexture(gRecursos->getTexture("select"));
+        select[i].setPosition(495, i * 53 + 10 + 364);
+        select[i].setTextureRect(sf::IntRect(0, i * 43, 290, 43));
     }
 
     music.setBuffer(gRecursos->getSom("menu"));
@@ -39,7 +46,10 @@ void MenuScene::executar() {
 void MenuScene::renderizar() {
     janela->addDrawable(background, 0);
     for (int i = 0; i < 2; i++) {
-        janela->addDrawable(button[i], 1);
+        if(i == selectedButton)
+            janela->addDrawable(select[i], 1);
+        else
+            janela->addDrawable(button[i], 1);
     }
     janela->render();
 }
@@ -71,11 +81,4 @@ void MenuScene::finalizar() {
 
 void MenuScene::selecionarBotao(int index) {
     selectedButton = index;
-    for (int i = 0; i < 2; i++) {
-        if (i == selectedButton) {
-            button[i].setColor(sf::Color::Yellow); // Destacar o botão selecionado
-        } else {
-            button[i].setColor(sf::Color::White); // Botões não selecionados em branco
-        }
-    }
 }

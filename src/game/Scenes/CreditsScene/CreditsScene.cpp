@@ -7,6 +7,8 @@ CreditsScene::CreditsScene() : elapsedTime(0) {}
 CreditsScene::~CreditsScene() {}
 
 void CreditsScene::inicializar() {
+
+    janela->carregarShaders();
     janela->setCentroCamera(janela->getTamanho().x/2,janela->getTamanho().y/2);
     janela->setTamanhoCamera(janela->getTamanho().x,janela->getTamanho().y);
     if (!font.loadFromFile("../assets/fonts/fonte.ttf")) { // Substitua pelo caminho do seu arquivo de fonte

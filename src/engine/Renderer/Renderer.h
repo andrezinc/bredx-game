@@ -103,6 +103,7 @@ public:
     sf::Vector2u getTamanho() const;
 
     void carregarShaders();
+    void tirarShader();
 };
 // }
 }

@@ -54,7 +54,6 @@ void Renderer::render()
     float deltaTime = clock.restart().asSeconds();
     janela.clear(sf::Color::Black);
     shader.setUniform("time", deltaTime);
-    shader.setUniform("isShader", true);
     janela.setView(camera);
     // Ordena os elementos com base na camada
     std::sort(drawables.begin(), // inicio do vetor
@@ -105,6 +104,11 @@ void Renderer::carregarShaders()
 
     shader.setUniform("texture", sf::Shader::CurrentTexture);
     shader.setUniform("resolution", sf::Vector2f(janela.getSize().x, janela.getSize().y));
+}
+
+void Renderer::tirarShader()
+{
+    shader.setUniform("isShader", false);
 }
 
 }
