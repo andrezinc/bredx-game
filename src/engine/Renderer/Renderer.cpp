@@ -50,8 +50,11 @@ void Renderer::setTamanhoCamera(float largura, float altura){
 
 void Renderer::render()
 {
+    sf::Clock clock;
+    float deltaTime = clock.restart().asSeconds();
     janela.clear(sf::Color::Black);
-
+    shader.setUniform("time", deltaTime);
+    shader.setUniform("isShader", true);
     janela.setView(camera);
     // Ordena os elementos com base na camada
     std::sort(drawables.begin(), // inicio do vetor

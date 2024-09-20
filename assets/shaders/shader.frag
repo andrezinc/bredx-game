@@ -8,7 +8,7 @@ uniform vec3 lightPos;   // Posição da luz
 uniform vec3 viewPos;    // Posição da câmera
 
 // Variáveis para glitch
-uniform float glitchAmount = 0.01; // Força do glitch
+uniform float glitchAmount = 0.0001; // Força do glitch
 
 // Função de ruído simples
 float noise(vec2 uv) {
@@ -47,7 +47,7 @@ void main() {
         }
     }
     edgeColor /= 9.0;
-    edgeColor = abs(originalColor - edgeColor) * 1.0; // Ajuste a intensidade aqui
+    edgeColor = abs(originalColor - edgeColor) * 0.05; // Ajuste a intensidade aqui
 
     // Adiciona o efeito de neon nas bordas detectadas
     vec4 neonColor = edgeColor * vec4(0.0, 1.0, 1.0, 1.0); // Cor do neon (ciano)
