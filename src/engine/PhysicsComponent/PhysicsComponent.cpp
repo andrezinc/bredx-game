@@ -14,9 +14,9 @@ PhysicsComponent::PhysicsComponent(sf::Vector2f  *position, sf::Vector2f *speed,
 void PhysicsComponent::aplicaFisica(float deltaTime)
 {
     // Aplica a gravidade se não estiver no chão
-    // if (!estaNoChao) {
-    //     velocidade->y += gravidade * deltaTime;
-    // }
+    if (!estaNoChao) {
+        velocidade->y += gravidade * deltaTime;
+    }
 
     // Atualiza a posição com base na velocidade
     posicao->x += velocidade->x * deltaTime;

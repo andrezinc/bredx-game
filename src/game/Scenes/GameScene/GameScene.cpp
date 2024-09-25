@@ -19,7 +19,7 @@ void GameScene::inicializar()
     map.loadMapFromFile("../assets/newmap/mapa.tmj");
     map.loadSheet(gRecursos->getTexture("tilesheet"));
     
-    janela->setTamanhoCamera(640, 320);
+    // janela->setTamanhoCamera(640, 320);
     std::vector<Entity*> lTiles = map.getEntitys();
     for(Entity* e :  lTiles) {
         lEntidades.push_back(e);
@@ -32,9 +32,6 @@ void GameScene::inicializar()
     
     // Arrumar essas gambiarras depois =============================================================
     player = new Player(gRecursos->getTexture("jogador"), 0, 0, 10, 2, 10);
-    // player->setHitBoxOffset(sf::Vector2f(5, 5));
-    // player->setHitBoxSize(sf::Vector2f(16, 16));
-    player->setSize(sf::Vector2f(32, 32));
     player->setPosicao(0, 0);
     lEntidades.push_back(player);
     
@@ -43,7 +40,7 @@ void GameScene::inicializar()
     }
 
     musica.setBuffer(gRecursos->getSom("game"));
-    musica.play();
+    // musica.play();
     musica.setLoop(true);
 
     // janela->carregarShaders();

@@ -14,7 +14,7 @@ public:
     ~TileEntity(){};
     void executar(float deltaTime) override {};
     void colidiuComTile(Entity* e) override {};
-    void colidiu(Entity* e) override {};
+    void colidiu(Entity* e) override { e->colidiuComTile(this); };
 };
 class TileMap {
 private:

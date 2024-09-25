@@ -5,6 +5,15 @@ Player::Player(sf::Texture& textura, int x, int y, int life, int atack, int poin
 {
     pontos = points;
     velocidadeHorizontal = 200.f;
+    
+    // ==== Caso precise mudar tamanho do sprite
+    // setSize(sf::Vector2f(64, 64));
+    // sf::FloatRect oldSize =  getHitBox().getGlobalBounds();
+    // sf::Vector2f newSize(50, 64);
+
+    // setHitBoxSize(newSize);
+    // sf::Vector2f hitBoxOffset = sf::Vector2f((oldSize.width - newSize.x) / 2, oldSize.height - (newSize.y + 5));
+    // setHitBoxOffset(hitBoxOffset);
 }
 
 void Player::executar(float deltaTime)
@@ -14,22 +23,22 @@ void Player::executar(float deltaTime)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         velocidade.x -= velocidadeHorizontal; // Mover para a esquerda
-        sprite.setScale(-1, 1);
+        setSize(sf::Vector2f(-64, 64));
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         velocidade.x += velocidadeHorizontal;  // Mover para a direita
-        sprite.setScale(1, 1);
+        setSize(sf::Vector2f(64, 64));
     }
 
-    // Debug sem gravidade
-    velocidade.y = 0.f;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        velocidade.y -= velocidadeHorizontal;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        velocidade.y += velocidadeHorizontal;
-    }
+    // // Debug sem gravidade
+    // velocidade.y = 0.f;
+    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    //     velocidade.y -= velocidadeHorizontal;
+    // }
+    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    //     velocidade.y += velocidadeHorizontal;
+    // }
 
     // Verifica a entrada do teclado para pular
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
