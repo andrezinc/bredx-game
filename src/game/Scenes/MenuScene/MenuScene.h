@@ -1,9 +1,6 @@
 #ifndef _MENUSCENE_H
 #define _MENUSCENE_H
 
-#include "../../../engine/CollisionManager/CollisionManager.h"
-#include "../../../engine/TileMap/TileMap.h"
-#include "../../../engine/TileMap/MapLoader.h"
 #include "../../../engine/SceneManager/Scene.h"
 #include "../../Entity/Entity.h" 
 

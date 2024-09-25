@@ -15,18 +15,12 @@ void GameScene::inicializar()
     gRecursos->loadSons("game", "../assets/musics/musicaMenu.mp3");
     gRecursos->loadTexture("jogador", "../assets/textures/protagonista.png");
     janela->setTamanhoCamera(640, 320);
-    if (!TileEngine::loadMapFromFile("../assets/map/map.json", mapData)) {
-        std::cout << "Erro ao carregar mapa" << std::endl;
-    }
+    map.loadMapFromFile("../assets/newmap/mapa.tmj");
 
-    if (!map.loadFromMapData("../assets/map/spritesheet.png", mapData)) {
-        std::cout << "Erro ao carregar Tilemap" << std::endl;
-    }
-
-    std::vector<Entity*> lTiles = map.getTiles();
-    for(Entity* e :  lTiles) {
-        lEntidades.push_back(e);
-    }
+    // std::vector<Entity*> lTiles = map.getTiles();
+    // for(Entity* e :  lTiles) {
+    //     lEntidades.push_back(e);
+    // }
 
     sf::Image playerImage;
     playerImage.create(16, 16, sf::Color::Blue);

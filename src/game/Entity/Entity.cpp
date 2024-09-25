@@ -8,6 +8,7 @@ Entity::Entity(int x, int y) : Ente(),
 {
     setOrigin(); // Isso serve para todas as entidades? ou só para as que se movem?
     posicao = sf::Vector2f(x, y);
+    setPosicao(posicao);
     criarHitBox(); // Inicializa a hitbox
 }
 
@@ -17,6 +18,7 @@ Entity::Entity(sf::Texture &textura, int x, int y) : Ente(textura),
 {
     setOrigin();
     posicao = sf::Vector2f(x, y);
+    setPosicao(posicao);
     criarHitBox(); // Inicializa a hitbox
 }
 

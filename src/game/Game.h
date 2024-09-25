@@ -5,7 +5,6 @@
 #include "./Entity/Entity.h" 
 #include "./Entity/Character/Player/Player.h" 
 #include "../engine/TileMap/TileMap.h"
-#include "../engine/TileMap/MapLoader.h"
 #include "../engine/SceneManager/SceneManager.h"
 #include "./Scenes/GameScene/GameScene.h"
 #include "./Scenes/MenuScene/MenuScene.h"

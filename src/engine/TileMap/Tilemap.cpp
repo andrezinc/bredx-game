@@ -1,70 +1,46 @@
 #include "TileMap.h"
+#include <fstream>
+#include <iostream>
+#include "json.hpp"
+using namespace nlohmann;
 
+namespace TileEngine{
+    
+TileMap::TileMap(){}
+TileMap::~TileMap(){}
 
-namespace TileEngine {
-TileMap::TileMap()
+void TileMap::loadMapFromFile(const std::string& filename)
 {
-    entidades.clear();
-}
-TileMap::~TileMap()
-{
-    for(const auto & entidade : entidades)
-    {
-        delete entidade;
+    std::fstream arquivo(filename);
+
+    if(!arquivo.is_open()){
+        std::cout << "ERRO::TILEMAP::LOADMAPFROMFILE::Arquivo nao pode ser aberto: " << filename << std::endl;
+        return;
     }
-}
 
-bool TileMap::loadFromMapData(const std::string& tileset, const MapData& mapData) 
-{
-    if (!m_tileset.loadFromFile(tileset))
-        return false;
+    json j;
+    arquivo >> j;
+    
+    arquivo.close();
 
-    m_vertices.setPrimitiveType(sf::Quads);
-    m_vertices.resize(mapData.mapWidth * mapData.mapHeight * 4);
+    tileSize = j["tilewidth"];
+    height = j["height"];
+    width = j["width"];
 
-    for (const auto& layer : mapData.layers) {
-        for (const auto& tile : layer.tiles) {
-            int tileNumber = tile.id;
+    std::vector<int> vetorTiles = j["layers"][0]["data"].get<std::vector<int>>();
 
-            int tu = tileNumber % (m_tileset.getSize().x / mapData.tileSize);
-            int tv = tileNumber / (m_tileset.getSize().x / mapData.tileSize);
-
-            sf::Vertex* quad = &m_vertices[(tile.x + tile.y * mapData.mapWidth) * 4];
-
-            quad[0].position = sf::Vector2f(tile.x * mapData.tileSize, tile.y * mapData.tileSize);
-            quad[1].position = sf::Vector2f((tile.x + 1) * mapData.tileSize, tile.y * mapData.tileSize);
-            quad[2].position = sf::Vector2f((tile.x + 1) * mapData.tileSize, (tile.y + 1) * mapData.tileSize);
-            quad[3].position = sf::Vector2f(tile.x * mapData.tileSize, (tile.y + 1) * mapData.tileSize);
-
-            quad[0].texCoords = sf::Vector2f(tu * mapData.tileSize, tv * mapData.tileSize);
-            quad[1].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, tv * mapData.tileSize);
-            quad[2].texCoords = sf::Vector2f((tu + 1) * mapData.tileSize, (tv + 1) * mapData.tileSize);
-            quad[3].texCoords = sf::Vector2f(tu * mapData.tileSize, (tv + 1) * mapData.tileSize);
-
-            // if(layer.collider){
-                TileEntity* novoTile = new TileEntity(m_tileset, mapData.tileSize, tu,  tv, tile.x, tile.y);
-                entidades.push_back(novoTile);
-            // }
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            std::cout << "Elemento [" << i << "][" << j << "] = " 
+                      << vetor1D[i * n + j] << std::endl;
         }
     }
 
-    return true;
 }
 
-void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
+TileEntity::TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile, int tileSize)
+           :Entity(textura, x, y)
 {
-    // Aplica a transformação
-    states.transform *= getTransform();
-
-    // Aplica a textura dos tiles
-    states.texture = &m_tileset;
-
-    // Desenha o vertex array
-    target.draw(m_vertices, states);
-}
-
-std::vector<Entity*> TileMap::getTiles() const
-{
-    return entidades;
+    sprite.setTextureRect(sf::IntRect(xTile, yTile, tileSize, tileSize));
 }
 }
