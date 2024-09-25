@@ -8,9 +8,9 @@ namespace TileEngine {
 
 class TileEntity : public Entity {
 private:
-    bool colisao;
+    bool aux;
 public:
-    TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile, int tileSize);
+    TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile, int tileSize, bool colide = 0);
     ~TileEntity(){};
     void executar(float deltaTime) override {};
     void colidiuComTile(Entity* e) override {};

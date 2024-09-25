@@ -17,10 +17,11 @@ class Entity : public Ente {
 protected:
     sf::Vector2f posicao;      //< Coordenada x e y do entidade na tela
     sf::Vector2f velocidade;   //< Velocidade vetorial  do entidade
+    bool colisao;
     sf::RectangleShape hitBox; //< Hitbox da entidade
     PhysicsComponent fisica;   //< Componente responsável pela gravidade, aceleração, movimento, etc.
     sf::Vector2f hitBoxSize;   //< Tamanho da hitbox do entidade para hitbox configurada manualmente
-    sf::Vector2f hitBoxOffset; //< Diferença entre o tamanho da sprite da entidade e sua hitBox 
+    sf::Vector2f hitBoxOffset; //< Diferença entre o tamanho da sprite da entidade e sua hitBox
 public:
     /**
      * @brief Construtor padrão da classe Entity.
@@ -35,7 +36,7 @@ public:
      * @param y coordenada no eixo y
      * @param textura objeto textura do SFML
      */
-    Entity(sf::Texture &textura,  int x = 0, int y = 0);
+    Entity(sf::Texture &textura,  int x = 0, int y = 0, bool colide = 1);
 
     /**
      * @brief Destruidor da classe Entity.
@@ -129,5 +130,7 @@ public:
      * @param e Ponteiro para a entidade tile que colidiu.
      */
     virtual void colidiuComTile(Entity* e);
+
+    bool getColisao() const { return colisao;}
 };
 #endif // _ENTITY_H_

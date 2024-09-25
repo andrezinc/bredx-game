@@ -38,10 +38,11 @@ void TileMap::loadMapFromFile(const std::string& filename)
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
             matrizTiles[i][j] =  vetorTiles[i * width + j];
-
+\
             if(matrizTiles[i][j]){
-            TileEntity* novoTile = new TileEntity(sheet, j, i, matrizTiles[i][j] - 1, 0, tileSize);
-            lTiles.push_back(novoTile);
+                bool tipo = (matrizTiles[i][j] == 3 || matrizTiles[i][j] == 4)? 1 : 0;
+                TileEntity* novoTile = new TileEntity(sheet, j, i, matrizTiles[i][j] - 1, 0, tileSize, tipo);
+                lTiles.push_back(novoTile);
             }
         }
     }
@@ -59,8 +60,8 @@ void TileMap::loadSheet(sf::Texture& textura)
 }
 
 // Tile entity
-TileEntity::TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile, int tileSize)
-           :Entity(textura, x * tileSize, y * tileSize)
+TileEntity::TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile, int tileSize, bool colide)
+           :Entity(textura, x * tileSize, y * tileSize, colide)
 {
     sprite.setTextureRect(sf::IntRect(xTile * tileSize, yTile * tileSize, tileSize, tileSize));
     criarHitBox();

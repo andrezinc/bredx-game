@@ -6,15 +6,18 @@ Entity::Entity(int x, int y) : Ente(),
                                hitBoxSize(sf::Vector2f(0.f, 0.f)),
                                hitBoxOffset(sf::Vector2f(0.f, 0.f))
 {
+    colisao = 0;
     setOrigin(); // Isso serve para todas as entidades? ou só para as que se movem?
     posicao = sf::Vector2f(x, y);
     setPosicao(posicao);
     criarHitBox(); // Inicializa a hitbox
 }
 
-Entity::Entity(sf::Texture &textura, int x, int y) : Ente(textura),
+Entity::Entity(sf::Texture &textura, int x, int y, bool colide) : Ente(textura),
                                                      hitBox(sf::Vector2f(0.f, 0.f)),
-                                                     fisica(&posicao, &velocidade)
+                                                     fisica(&posicao, &velocidade),
+                                                     colisao(colide)
+                                                
 {
     setOrigin();
     posicao = sf::Vector2f(x, y);

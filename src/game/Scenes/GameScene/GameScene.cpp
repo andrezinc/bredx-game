@@ -36,7 +36,8 @@ void GameScene::inicializar()
     lEntidades.push_back(player);
     
     for(Entity* entidade : lEntidades){
-        gColisao.addEntity(entidade);
+        if(entidade->getColisao())
+            gColisao.addEntity(entidade);
     }
 
     musica.setBuffer(gRecursos->getSom("game"));
@@ -66,7 +67,7 @@ void GameScene::renderizar()
     for(Entity* e : lEntidades)
     {
         e->renderizar();
-        janela->addDrawable(e->getHitBox(), 3);
+        // janela->addDrawable(e->getHitBox(), 3);
     }
 
     janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
