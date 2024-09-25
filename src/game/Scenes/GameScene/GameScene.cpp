@@ -14,13 +14,16 @@ void GameScene::inicializar()
 {
     gRecursos->loadSons("game", "../assets/musics/musicaMenu.mp3");
     gRecursos->loadTexture("jogador", "../assets/textures/protagonista.png");
-    janela->setTamanhoCamera(640, 320);
+    gRecursos->loadTexture("tilesheet", "../assets/newmap/sheets.png");
+    
     map.loadMapFromFile("../assets/newmap/mapa.tmj");
-
-    // std::vector<Entity*> lTiles = map.getTiles();
-    // for(Entity* e :  lTiles) {
-    //     lEntidades.push_back(e);
-    // }
+    map.loadSheet(gRecursos->getTexture("tilesheet"));
+    
+    janela->setTamanhoCamera(640, 320);
+    std::vector<Entity*> lTiles = map.getEntitys();
+    for(Entity* e :  lTiles) {
+        lEntidades.push_back(e);
+    }
 
     sf::Image playerImage;
     playerImage.create(16, 16, sf::Color::Blue);
@@ -43,7 +46,7 @@ void GameScene::inicializar()
     musica.play();
     musica.setLoop(true);
 
-    janela->carregarShaders();
+    // janela->carregarShaders();
 }
 
 void GameScene::executar()
@@ -58,7 +61,6 @@ void GameScene::executar()
     {
         e->executar(deltaTime);
     }
-    std::cout << player->getPosicao().x << " " << player->getPosicao().y << std::endl;
 
 }
 
@@ -67,7 +69,7 @@ void GameScene::renderizar()
     for(Entity* e : lEntidades)
     {
         e->renderizar();
-        // janela->addDrawable(e->getHitBox(), 3);
+        janela->addDrawable(e->getHitBox(), 3);
     }
 
     janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);

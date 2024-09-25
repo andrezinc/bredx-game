@@ -22,6 +22,15 @@ void Player::executar(float deltaTime)
         sprite.setScale(1, 1);
     }
 
+    // Debug sem gravidade
+    velocidade.y = 0.f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        velocidade.y -= velocidadeHorizontal;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        velocidade.y += velocidadeHorizontal;
+    }
+
     // Verifica a entrada do teclado para pular
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         pular(); // atualizar essa função

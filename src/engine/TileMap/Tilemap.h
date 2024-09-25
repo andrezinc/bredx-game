@@ -14,18 +14,22 @@ public:
     ~TileEntity(){};
     void executar(float deltaTime) override {};
     void colidiuComTile(Entity* e) override {};
-
+    void colidiu(Entity* e) override {};
 };
 class TileMap {
 private:
     int tileSize;
     int height;
     int width;
+    std::vector<std::vector<int>> matrizTiles;
     std::vector<TileEntity*> lTiles;
+    sf::Texture sheet;
 public:
     TileMap();
     ~TileMap();
     void loadMapFromFile(const std::string& filename);
+    void loadSheet(sf::Texture& textura);
+    std::vector<Entity*> getEntitys();
 };
 }
 #endif
