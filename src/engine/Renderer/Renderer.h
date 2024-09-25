@@ -54,7 +54,7 @@ public:
      * @param camada ordem em que vai ser renderizado, os últimos são os que aparecem por cima
      * @todo Inserir um método para colocar a camada por ordem de inserção.
      */
-    void addDrawable(const sf::Drawable& drawable, int camada = 0); // Adiciona um elemento para ser desenhado
+    void addDrawable(const sf::Drawable& drawable, int camada = 4); // Adiciona um elemento para ser desenhado
     /**
      * @brief Limpa a fila de rendeziração
      */
@@ -102,8 +102,10 @@ public:
      */
     sf::Vector2u getTamanho() const;
 
+    // Documentar
     void carregarShaders();
     void tirarShader();
+    sf::View& getView() { return camera; }
 };
 // }
 }

@@ -66,14 +66,7 @@ void Entity::criarHitBox()
 
     // Se a hitbox personalizada não for definida, use o tamanho da sprite
     if (hitBoxSize == sf::Vector2f(0.f, 0.f))
-    {
-
         hitBoxSize = sf::Vector2f(sprite.getGlobalBounds().width, sprite.getGlobalBounds().height);
-        std::cout << "Mudando tamanho da hitbox x: " << hitBoxSize.x << " y: " << hitBoxSize.y << std::endl;
-    }else
-    {
-        std::cout << "Mudando tamanho da hitbox x: " << hitBoxSize.x << " y: " << hitBoxSize.y << std::endl;
-    }
 
     // Atualiza o tamanho e a posição da hitbox com base na sprite e offset
     hitBox.setSize(hitBoxSize);

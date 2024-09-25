@@ -14,11 +14,17 @@ void GameScene::inicializar()
 {
     gRecursos->loadSons("game", "../assets/musics/musicaMenu.mp3");
     gRecursos->loadTexture("jogador", "../assets/textures/protagonista.png");
+    gRecursos->loadTexture("cenario1", "../assets/textures/cenario1.png");    
+    gRecursos->loadTexture("cenario2", "../assets/textures/cenario2.png");
+    gRecursos->loadTexture("cenario3", "../assets/textures/cenario3.png");
     gRecursos->loadTexture("tilesheet", "../assets/newmap/sheets.png");
     
     map.loadMapFromFile("../assets/newmap/mapa.tmj");
     map.loadSheet(gRecursos->getTexture("tilesheet"));
     
+    cenario.addLayer(gRecursos->getTexture("cenario3"), 0.5);
+    cenario.addLayer(gRecursos->getTexture("cenario2"), 0.75);
+    cenario.addLayer(gRecursos->getTexture("cenario1"), 1);
     // janela->setTamanhoCamera(640, 320);
     std::vector<Entity*> lTiles = map.getEntitys();
     for(Entity* e :  lTiles) {
@@ -51,6 +57,8 @@ void GameScene::executar()
 {
     deltaTime = tempo.restart().asSeconds();
 
+    cenario.atualizar(janela->getView());
+
     if (deltaTime > 0.1f) {
         deltaTime = 0.1f;
     }
@@ -64,12 +72,14 @@ void GameScene::executar()
 
 void GameScene::renderizar()
 {
+    cenario.renderizar();
+
     for(Entity* e : lEntidades)
     {
-        e->renderizar();
+        e->renderizar(5);
         // janela->addDrawable(e->getHitBox(), 3);
     }
-
+    // std::cout << player->getPosicao().y << std::endl;
     janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
     // janela->addDrawable(map);
     janela->render();

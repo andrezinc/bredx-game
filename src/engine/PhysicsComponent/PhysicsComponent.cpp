@@ -23,6 +23,12 @@ void PhysicsComponent::aplicaFisica(float deltaTime)
     posicao->y += velocidade->y * deltaTime;
 
     // Reseta a flag de pulo após tocar o chão
+    if(posicao->y > 300)
+    {
+        estaNoChao =  true;
+        posicao->y = 300;
+    }
+
     if (estaNoChao) {
         pulando = false;
         velocidade->y = 0; // Zera a velocidade vertical se estiver no chão

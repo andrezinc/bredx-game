@@ -52,8 +52,8 @@ void Renderer::render()
 {
     sf::Clock clock;
     float deltaTime = clock.restart().asSeconds();
-    // janela.clear(sf::Color::Black);
-    janela.clear(sf::Color::White); // mudar para black depois
+    janela.clear(sf::Color::Black);
+    // janela.clear(sf::Color::White); // mudar para black depois
     shader.setUniform("time", deltaTime);
     janela.setView(camera);
     // Ordena os elementos com base na camada

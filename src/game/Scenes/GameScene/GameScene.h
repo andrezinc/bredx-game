@@ -7,6 +7,7 @@
 #include "../../../engine/SceneManager/Scene.h"
 #include "../../../engine/SceneManager/Scene.h"
 #include "../../../engine/SceneManager/SceneManager.h"
+#include "../../../engine/Paralaxe/Paralaxe.h"
 #include "../MenuScene/MenuScene.h"
 #include "../../Entity/Entity.h" 
 
@@ -14,6 +15,7 @@ class GameScene : public Scene {
 private:
     Gerenciador::CollisionManager gColisao; ///< Instância do gerenciador de colisões
     TileEngine::TileMap map;                ///< Instância do mapa de tiles
+    Parallax cenario;
     Player* player;
     std::vector<Entity*> lEntidades;
     sf::Sound musica;
