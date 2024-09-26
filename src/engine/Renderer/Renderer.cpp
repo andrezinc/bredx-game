@@ -114,32 +114,37 @@ void Renderer::setMoveBounds(const sf::FloatRect& bounds) {
 }
 
 void Renderer::updateCamera(const sf::Vector2f& playerPos) {
+    float offsetY = 300.0f; // Valor positivo para mover o personagem para cima na tela
     // Atualiza a posição da caixaDeMovimento
     caixaDeMovimento.left = camera.getCenter().x - caixaDeMovimento.width / 2;
-    caixaDeMovimento.top = camera.getCenter().y - caixaDeMovimento.height / 2;
+    caixaDeMovimento.top = camera.getCenter().y - caixaDeMovimento.height / 2 + offsetY;
 
     if (isPlayerOutsideBounds(playerPos)) {
         // Calcule a nova posição da câmera suavemente
         sf::Vector2f targetPosition = playerPos; // Posição do jogador
+        targetPosition.y -= offsetY;
         sf::Vector2f currentPosition = camera.getCenter(); // Posição atual da câmera
         
         // Interpolação linear para mover a câmera suavemente
         float smoothFactor = 0.1f; // Ajuste este valor para controlar a suavidade
         sf::Vector2f newPosition = currentPosition + (targetPosition - currentPosition) * smoothFactor;
 
+        // Ajuste a posição da câmera para que o jogador fique mais abaixo do centro
+        
         setCentroCamera(newPosition.x, newPosition.y);
     }
 
-    // Cria a representação visual da caixa
-    sf::RectangleShape *caixaCam = new sf::RectangleShape(sf::Vector2f(caixaDeMovimento.width, caixaDeMovimento.height));
-    caixaCam->setPosition(caixaDeMovimento.left, caixaDeMovimento.top);
-    caixaCam->setFillColor(sf::Color::Transparent); // Vermelho com transparência
-    caixaCam->setOutlineColor(sf::Color::Yellow);
-    caixaCam->setOutlineThickness(1);
+    // // Cria a representação visual da caixa
+    // sf::RectangleShape *caixaCam = new sf::RectangleShape(sf::Vector2f(caixaDeMovimento.width, caixaDeMovimento.height));
+    // caixaCam->setPosition(caixaDeMovimento.left, caixaDeMovimento.top);
+    // caixaCam->setFillColor(sf::Color::Transparent); // Vermelho com transparência
+    // caixaCam->setOutlineColor(sf::Color::Yellow);
+    // caixaCam->setOutlineThickness(1);
+    // // Adicione a caixaCam à lista de objetos desenháveis
+    // addDrawable(*caixaCam, 3); // A camada pode ser ajustada conforme necessário
     
-    // Adicione a caixaCam à lista de objetos desenháveis
-    addDrawable(*caixaCam, 3); // A camada pode ser ajustada conforme necessário
 }
+
 
 
 
