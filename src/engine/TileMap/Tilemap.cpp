@@ -67,4 +67,9 @@ TileEntity::TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile,
     criarHitBox();
     atualizaHitBox();
 }
+
+sf::Vector2f TileMap::getOrigem() const
+{
+    return sf::Vector2f( 0 * tileSize, height * tileSize);
+}
 }

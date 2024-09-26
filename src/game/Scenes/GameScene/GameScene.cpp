@@ -21,10 +21,11 @@ void GameScene::inicializar()
     
     map.loadMapFromFile("../assets/newmap/mapa.tmj");
     map.loadSheet(gRecursos->getTexture("tilesheet"));
-    
     cenario.addLayer(gRecursos->getTexture("cenario3"), 0.5);
     cenario.addLayer(gRecursos->getTexture("cenario2"), 0.75);
     cenario.addLayer(gRecursos->getTexture("cenario1"), 1);
+
+    cenario.setPosition(map.getOrigem());
     // janela->setTamanhoCamera(640, 320);
     std::vector<Entity*> lTiles = map.getEntitys();
     for(Entity* e :  lTiles) {
@@ -47,7 +48,7 @@ void GameScene::inicializar()
     }
 
     musica.setBuffer(gRecursos->getSom("game"));
-    // musica.play();
+    musica.play();
     musica.setLoop(true);
 
     // janela->carregarShaders();
@@ -57,7 +58,7 @@ void GameScene::executar()
 {
     deltaTime = tempo.restart().asSeconds();
 
-    cenario.atualizar(janela->getView());
+    // cenario.atualizar(janela->getView());
 
     if (deltaTime > 0.1f) {
         deltaTime = 0.1f;
@@ -81,7 +82,7 @@ void GameScene::renderizar()
     }
     // std::cout << player->getPosicao().y << std::endl;
     janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
-    // janela->addDrawable(map);
+
     janela->render();
 }
 

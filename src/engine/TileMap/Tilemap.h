@@ -30,6 +30,7 @@ public:
     void loadMapFromFile(const std::string& filename);
     void loadSheet(sf::Texture& textura);
     std::vector<Entity*> getEntitys();
+    sf::Vector2f getOrigem() const;
 };
 }
 #endif

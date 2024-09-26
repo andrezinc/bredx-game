@@ -7,11 +7,17 @@ void Parallax::addLayer(sf::Texture& textura, float velocidade)
 {
     sf::Sprite* novaCamada = new sf::Sprite;
     novaCamada->setTexture(textura);
-    novaCamada->setOrigin(novaCamada->getGlobalBounds().width/2, novaCamada->getGlobalBounds().height/2);
+    novaCamada->setOrigin(0, novaCamada->getGlobalBounds().height);
     layers.push_back(novaCamada);
     speed.push_back(velocidade);
 }
 
+void Parallax::setPosition(sf::Vector2f origem)
+{
+    for(sf::Sprite* s : layers){
+        s->setPosition(origem);
+    }
+}
 void Parallax::atualizar(sf::View& camera)
 {
     for (int i = 0; i < layers.size(); i++){

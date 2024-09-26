@@ -8,7 +8,7 @@ uniform vec3 lightPos;   // Posição da luz
 uniform vec3 viewPos;    // Posição da câmera
 
 // Variáveis para glitch
-uniform float glitchAmount = 0.01; // Força do glitch
+uniform float glitchAmount = 0.0005; // Força do glitch
 
 // Função de ruído simples
 float noise(vec2 uv) {

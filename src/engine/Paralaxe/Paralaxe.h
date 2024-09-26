@@ -14,6 +14,7 @@ public:
     void addLayer(sf::Texture& textura, float speed);
     void atualizar(sf::View& camera);
     void renderizar();
+    void setPosition(sf::Vector2f origem);
 };
 
 #endif // _PARALLAX_H

@@ -5,7 +5,7 @@ Game::Game():
     janela(Gerenciador::Renderer::getInstance()),
     gCenas(SceneManager::getInstance())
 {
-    // janela->carregarShaders();
+    janela->carregarShaders();
 }
 
 Game::~Game()
