@@ -8,7 +8,8 @@ Gerenciador::Renderer* Renderer::singleton = nullptr;
 
 Renderer::Renderer(int largura, int altura, const std::string &titulo)
     : janela(sf::VideoMode(largura, altura), titulo),
-      camera(sf::FloatRect(0, 0, largura, altura)) // Inicia câmera com tamanho da janela
+      camera(sf::FloatRect(0, 0, largura, altura)), // Inicia câmera com tamanho da janela
+      caixaDeMovimento(largura / 4, altura / 4, largura / 2, altura / 2) // Define os limites iniciais
 {
     janela.setFramerateLimit(60);
     render(); // Chama render para limpar a janela com a cor preta inicialmente
@@ -20,8 +21,6 @@ Renderer::~Renderer(){
 
 Renderer* Renderer::getInstance(int largura, int altura, const std::string& titulo)
 {
-    // std::cout << largura << " " << altura << " " << titulo << std::endl;
-    
     if(singleton == nullptr)
         singleton = new Renderer(largura, altura, titulo);
     
@@ -53,24 +52,21 @@ void Renderer::render()
     sf::Clock clock;
     float deltaTime = clock.restart().asSeconds();
     janela.clear(sf::Color::Black);
-    // janela.clear(sf::Color::White); // mudar para black depois
     shader.setUniform("time", deltaTime);
     janela.setView(camera);
     // Ordena os elementos com base na camada
-    std::sort(drawables.begin(), // inicio do vetor
-              drawables.end(),   // fim do vetor (iteradores para o sort())
+    std::sort(drawables.begin(),
+              drawables.end(),
               [](const std::pair<const sf::Drawable *, int> &a, const std::pair<const sf::Drawable *, int> &b)
               {
-                  return a.second < b.second; // Função lambda que define como comparar dois elementos
-              }
-
-    );
+                  return a.second < b.second;
+              });
 
     for (const auto &drawable : drawables){
         if (shaderCarregado) {
-            janela.draw(*drawable.first, &shader); // Aplica o shader se estiver carregado
+            janela.draw(*drawable.first, &shader);
         } else {
-            janela.draw(*drawable.first); // Desenha sem shader se não estiver carregado
+            janela.draw(*drawable.first);
         }
     }
 
@@ -85,6 +81,7 @@ bool Renderer::isOpen(){
 void Renderer::close(){
     janela.close();
 }
+
 bool Renderer::pollEvent(sf::Event &evento){
     return janela.pollEvent(evento);
 }
@@ -97,10 +94,10 @@ void Renderer::carregarShaders()
 {   
     std::string  path = "../assets/shaders/shader.frag";
     if (shader.loadFromFile(path, sf::Shader::Fragment)) {
-        shaderCarregado = true; // Define como true se o shader for carregado com sucesso
+        shaderCarregado = true;
     } else {
         std::cerr << "Erro ao carregar shaders: " << path << std::endl;
-        shaderCarregado = false; // Define como false em caso de falha
+        shaderCarregado = false;
     }
 
     shader.setUniform("texture", sf::Shader::CurrentTexture);
@@ -112,4 +109,46 @@ void Renderer::tirarShader()
     shader.setUniform("isShader", false);
 }
 
+void Renderer::setMoveBounds(const sf::FloatRect& bounds) {
+    caixaDeMovimento = bounds;
+}
+
+void Renderer::updateCamera(const sf::Vector2f& playerPos) {
+    // Atualiza a posição da caixaDeMovimento
+    caixaDeMovimento.left = camera.getCenter().x - caixaDeMovimento.width / 2;
+    caixaDeMovimento.top = camera.getCenter().y - caixaDeMovimento.height / 2;
+
+    if (isPlayerOutsideBounds(playerPos)) {
+        // Calcule a nova posição da câmera suavemente
+        sf::Vector2f targetPosition = playerPos; // Posição do jogador
+        sf::Vector2f currentPosition = camera.getCenter(); // Posição atual da câmera
+        
+        // Interpolação linear para mover a câmera suavemente
+        float smoothFactor = 0.1f; // Ajuste este valor para controlar a suavidade
+        sf::Vector2f newPosition = currentPosition + (targetPosition - currentPosition) * smoothFactor;
+
+        setCentroCamera(newPosition.x, newPosition.y);
+    }
+
+    // Cria a representação visual da caixa
+    sf::RectangleShape *caixaCam = new sf::RectangleShape(sf::Vector2f(caixaDeMovimento.width, caixaDeMovimento.height));
+    caixaCam->setPosition(caixaDeMovimento.left, caixaDeMovimento.top);
+    caixaCam->setFillColor(sf::Color::Transparent); // Vermelho com transparência
+    caixaCam->setOutlineColor(sf::Color::Yellow);
+    caixaCam->setOutlineThickness(1);
+    
+    // Adicione a caixaCam à lista de objetos desenháveis
+    addDrawable(*caixaCam, 3); // A camada pode ser ajustada conforme necessário
+}
+
+
+
+sf::View& Renderer::getView() {
+    return camera;
+}
+
+bool Renderer::isPlayerOutsideBounds(const sf::Vector2f& playerPos) const {
+    return playerPos.x < caixaDeMovimento.left || playerPos.x > caixaDeMovimento.left + caixaDeMovimento.width ||
+           playerPos.y < caixaDeMovimento.top || playerPos.y > caixaDeMovimento.top + caixaDeMovimento.height;
+}
 }

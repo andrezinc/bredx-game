@@ -51,6 +51,7 @@ void GameScene::inicializar()
     musica.play();
     musica.setLoop(true);
 
+    janela->setMoveBounds(sf::FloatRect(200, 200, 100, 100)); // Exemplo de retângulo de 200x200
     // janela->carregarShaders();
 }
 
@@ -68,7 +69,7 @@ void GameScene::executar()
     {
         e->executar(deltaTime);
     }
-
+    janela->updateCamera(player->getPosicao());
 }
 
 void GameScene::renderizar()
@@ -81,7 +82,7 @@ void GameScene::renderizar()
         // janela->addDrawable(e->getHitBox(), 3);
     }
     // std::cout << player->getPosicao().y << std::endl;
-    janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
+    // janela->setCentroCamera(player->getPosicao().x, player->getPosicao().y);
 
     janela->render();
 }
