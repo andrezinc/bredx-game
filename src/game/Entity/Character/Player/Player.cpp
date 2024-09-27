@@ -6,6 +6,19 @@ Player::Player(sf::Texture& textura, int x, int y, int life, int atack, int poin
     pontos = points;
     velocidadeHorizontal = 200.f;
     
+    idleAnimation.setSpriteSheet(gRecursos->getTexture("animacao"));
+    walkAnimation.setSpriteSheet(gRecursos->getTexture("animacao"));
+
+    idleAnimation.addFrame(sf::IntRect(0, 0, 64, 64));
+    idleAnimation.setFrameDuration(0.1f);
+    
+    walkAnimation.addFrame(sf::IntRect(0, 0, 64, 64));
+    walkAnimation.addFrame(sf::IntRect(64, 0, 64, 64));
+    walkAnimation.addFrame(sf::IntRect(128, 0, 64, 64));
+    walkAnimation.addFrame(sf::IntRect(192, 0, 64, 64));
+    walkAnimation.setFrameDuration(0.05f);
+
+    currentAnimation = &idleAnimation;
     // ==== Caso precise mudar tamanho do sprite
     // setSize(sf::Vector2f(64, 64));
     // sf::FloatRect oldSize =  getHitBox().getGlobalBounds();
@@ -19,7 +32,7 @@ Player::Player(sf::Texture& textura, int x, int y, int life, int atack, int poin
 void Player::executar(float deltaTime)
 {
     velocidade.x = 0.f; // Reseta a velocidade horizontal para não ter aceleração infinita
-
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         velocidade.x -= velocidadeHorizontal; // Mover para a esquerda
@@ -44,6 +57,11 @@ void Player::executar(float deltaTime)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         pular(); // atualizar essa função
     }
+
+    isMoving = (velocidade.x != 0)? 1 : 0;
+    currentAnimation = (isMoving)? &walkAnimation : &idleAnimation;
+    currentAnimation->update(deltaTime);
+    currentAnimation->applyToSprite(sprite);
 
     Character::executar(deltaTime); // Chama o executar da classe pai que aplica a movimentação
 }

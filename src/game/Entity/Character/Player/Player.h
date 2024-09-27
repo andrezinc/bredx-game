@@ -2,7 +2,7 @@
 #define _PLAYER_H
 
 #include "../Character.h"
-
+#include "../../../../engine/Animation/Animation.h"
 /**
  * @class Player
  * @brief Representa o jogador no jogo
@@ -14,6 +14,11 @@ class Player : public Character {
 private:
     int pontos; ///< Pontos acumulados pelo jogador.
     float velocidadeHorizontal; ///< Velocidade horizontal do jogador.
+
+    Animation walkAnimation;
+    Animation idleAnimation;
+    Animation* currentAnimation;
+    bool isMoving;
 
 public:
     /**

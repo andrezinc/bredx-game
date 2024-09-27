@@ -18,7 +18,8 @@ void GameScene::inicializar()
     gRecursos->loadTexture("cenario2", "../assets/textures/cenario2.png");
     gRecursos->loadTexture("cenario3", "../assets/textures/cenario3.png");
     gRecursos->loadTexture("tilesheet", "../assets/newmap/sheets.png");
-    
+    gRecursos->loadTexture("animacao", "../assets/textures/protagonistaSheet.png");
+
     map.loadMapFromFile("../assets/newmap/mapa.tmj");
     map.loadSheet(gRecursos->getTexture("tilesheet"));
     cenario.addLayer(gRecursos->getTexture("cenario3"), 0.5);
