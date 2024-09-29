@@ -8,6 +8,11 @@ CreditsScene::~CreditsScene() {}
 
 void CreditsScene::inicializar() {
 
+    gRecursos->loadMusic("creditos", "../assets/musics/creditos.wav");
+    music = gRecursos->getMusic("creditos");
+    music->setLoop(true);
+    music->setVolume(50);
+    music->play();
     janela->carregarShaders();
     janela->setCentroCamera(janela->getTamanho().x/2,janela->getTamanho().y/2);
     janela->setTamanhoCamera(janela->getTamanho().x,janela->getTamanho().y);
@@ -16,7 +21,7 @@ void CreditsScene::inicializar() {
     }
 
     creditsText.setFont(font);
-    creditsText.setString("Creditos:\n\nDesenvolvedor: Capivara Galopante\n\nGraficos: Brebs Dislexa\n\nMusica: Jhonny Mondback");
+    creditsText.setString("Creditos:\n\nDesenvolvedor: Vitor Silva (@vitor.tml)\n\nGraficos: Brenda Alves (@brealvsz)\n\nMusica: Joao Manfron(@joao.manfron)");
     creditsText.setCharacterSize(24);
     creditsText.setFillColor(sf::Color::White);
     
@@ -60,5 +65,6 @@ void CreditsScene::processarEventos(const sf::Event &evento) {
 }
 
 void CreditsScene::finalizar() {
+    music->stop();
     // Limpeza necessária, se houver
 }

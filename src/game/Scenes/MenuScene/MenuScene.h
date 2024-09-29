@@ -9,7 +9,7 @@ private:
     sf::Sprite background;
     sf::Sprite button[2];
     sf::Sprite select[2];
-    sf::Sound music;
+    sf::Music *music;
     int selectedButton; // Variável para controlar qual botão está selecionado
     void selecionarBotao(int index); // Método para selecionar um botão
 

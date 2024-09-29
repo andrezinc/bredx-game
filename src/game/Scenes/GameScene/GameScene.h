@@ -18,7 +18,7 @@ private:
     Parallax cenario;
     Player* player;
     std::vector<Entity*> lEntidades;
-    sf::Sound musica;
+    sf::Music *musica;
 public:
     GameScene();
     ~GameScene();

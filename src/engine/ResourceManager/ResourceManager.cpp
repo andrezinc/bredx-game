@@ -97,4 +97,16 @@ sf::SoundBuffer& ResourceManager::getSom(const std::string& id)
 {
     return  sons.at(id);
 }
+
+bool ResourceManager::loadMusic(const std::string& id, const std::string& filename) {
+    sf::Music *nMusica = new sf::Music;
+    if (!nMusica->openFromFile(filename))
+        return false;
+    musicas[id] = nMusica;
+    return true;
+}
+
+sf::Music* ResourceManager::getMusic(const std::string& id) {
+    return musicas.at(id);
+}
 }// end namespace Gerenciador

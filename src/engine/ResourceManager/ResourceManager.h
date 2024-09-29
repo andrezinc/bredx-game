@@ -23,7 +23,7 @@ private:
     std::unordered_map<std::string, sf::Font> fontes;      ///< Conjunto de fontes (chave, fonte)
     std::unordered_map<std::string, sf::Image> imagens;    ///< Conjunto de fontes (chave, fonte)
     std::unordered_map<std::string, sf::SoundBuffer> sons; ///< Conjunto de sons (chave, som)
-
+    std::unordered_map<std::string, sf::Music*> musicas; ///< Conjunto de músicas (chave, música)
     ResourceManager(){}; ///< Construtora privada para evitar outras instâncias
     ~ResourceManager(){ delete singleton; };
 public:
@@ -105,6 +105,10 @@ public:
      * @return Referência ao som relativa ao ID.
      */
     sf::SoundBuffer& getSom(const std::string& id);
+
+
+    bool loadMusic(const std::string& id, const std::string& filename);
+    sf::Music* getMusic(const std::string& id);
 };
 }
 #endif

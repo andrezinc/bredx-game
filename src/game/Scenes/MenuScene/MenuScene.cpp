@@ -17,7 +17,7 @@ void MenuScene::inicializar() {
     gRecursos->loadTexture("menu", "../assets/textures/menu.png");
     gRecursos->loadTexture("butao", "../assets/textures/butao.png");
     gRecursos->loadTexture("select", "../assets/textures/selecionado.png");
-    gRecursos->loadSons("menu", "../assets/musics/loop.mp3");
+    gRecursos->loadMusic("menu", "../assets/musics/menu.wav");
 
     background.setTexture(gRecursos->getTexture("menu"));
     background.setPosition(0, 0);
@@ -32,9 +32,21 @@ void MenuScene::inicializar() {
         select[i].setTextureRect(sf::IntRect(0, i * 43, 290, 43));
     }
 
-    music.setBuffer(gRecursos->getSom("menu"));
-    music.play();
-    music.setLoop(true);
+    music = gRecursos->getMusic("menu");
+    music->setVolume(0); // Começar com volume zero
+    music->setLoop(true);
+    music->play();
+
+    // Fade-in effect
+    float targetVolume = 50; // Volume final desejado
+    float currentVolume = 0;
+    float step = targetVolume / 50.0f;  // Ajuste o divisor para controlar a duração do fade-in
+
+    while (currentVolume < targetVolume) {
+        currentVolume += step;
+        music->setVolume(currentVolume);
+        sf::sleep(sf::milliseconds(20));  // Ajuste o tempo para controlar a suavidade do fade-in
+    }
 
     selecionarBotao(0);
 }
@@ -76,7 +88,20 @@ void MenuScene::processarEventos(const sf::Event &evento) {
 }
 
 void MenuScene::finalizar() {
-    music.stop();
+    if (music)
+    {
+        float volume = music->getVolume();
+        float step = volume / 50.0f;  // Ajuste o divisor para controlar a duração do fade-out
+
+        while (volume > 0)
+        {
+            volume -= step;
+            music->setVolume(volume);
+            sf::sleep(sf::milliseconds(20));  // Ajuste o tempo para controlar a suavidade do fade-out
+        }
+
+        music->stop();
+    }
 }
 
 void MenuScene::selecionarBotao(int index) {

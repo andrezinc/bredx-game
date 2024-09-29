@@ -23,6 +23,7 @@ private:
     sf::Font font;
     sf::RectangleShape background;
     sf::Clock clock;
+    sf::Music *music;
     float elapsedTime;
 };
 
