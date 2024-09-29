@@ -93,4 +93,4 @@ JogoPlataforma/
 ## Gerenciamento do Projeto
 [Notion](https://buttered-hardhat-d97.notion.site/Prodisgame-9a12f75679a847f8b654f903ab56e048?pvs=4)
 
-[![Estado do Jogo](https://youtu.be/8EU4itDEwD0)
+[![Estado do Jogo](https://i.pinimg.com/736x/f1/22/3e/f1223e6ca40966eaeee9ece466791c1c.jpg)](https://youtu.be/8EU4itDEwD0)
