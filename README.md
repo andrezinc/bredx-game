@@ -1,4 +1,4 @@
-# Prodyslexos
+# Prodislex Game
 Este é um projeto de um jogo de plataforma 2D desenvolvido em C++ com foco em criar uma game engine personalizada que suporte mecânicas complexas de jogos de plataforma.
 Também faz parte do projeto a interação entre o desenvolvedor e os artistas responsáveis pela criação de assets visuais e de som, para garantir que o jogo seja atraente.
 Código: Vitor-tml
