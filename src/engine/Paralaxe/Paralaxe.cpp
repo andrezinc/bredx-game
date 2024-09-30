@@ -33,14 +33,13 @@ void Parallax::atualizar(sf::View& camera)
 {
     sf::Vector2f coordCam = camera.getCenter();
     sf::Vector2f delta = coordCam - lastCameraPosition; // Calcula a mudança na posição da câmera
-    float direcao = (delta.x > 0)? 1 : -1;
 
     for (Camada* layer : layers) {
         // Atualiza a posição da camada com base na mudança da câmera
         sf::Vector2f antigaCoord = layer->sprite[0].getPosition();
-        layer->sprite[0].setPosition(antigaCoord.x + delta.x * layer->velocidade * direcao, antigaCoord.y);
+        layer->sprite[0].setPosition(antigaCoord.x + delta.x * layer->velocidade, antigaCoord.y);
         antigaCoord = layer->sprite[1].getPosition();
-        layer->sprite[1].setPosition(antigaCoord.x + delta.x * layer->velocidade * direcao, antigaCoord.y);
+        layer->sprite[1].setPosition(antigaCoord.x + delta.x * layer->velocidade, antigaCoord.y);
     }
 
     // Atualiza a última posição da câmera
@@ -72,7 +71,6 @@ void Parallax::estenderLayer(sf::View& camera)
 
     for(Camada* l : layers)
     {
-        std::cout << "0: " << l->sprite[0].getGlobalBounds().left <<  "    1:" << l->sprite[1].getGlobalBounds().left << std::endl;
         int esquerda = (l->sprite[0].getGlobalBounds().left < l->sprite[1].getGlobalBounds().left)? 0 : 1;
         int direita = !esquerda;
         sf::FloatRect rectLayer(

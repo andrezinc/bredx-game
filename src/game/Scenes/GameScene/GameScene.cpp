@@ -26,7 +26,7 @@ void GameScene::inicializar()
     cenario.addLayer(gRecursos->getTexture("cenario2"), 0.2, 1);
     cenario.addLayer(gRecursos->getTexture("cenario1"), 0,    2);
 
-    cenario.setPosition(map.getOrigem());
+    cenario.setPosition(map.getOrigem() + sf::Vector2f(0, 50));
     // janela->setTamanhoCamera(640, 320);
     std::vector<Entity*> lTiles = map.getEntitys();
     for(Entity* e :  lTiles) {
