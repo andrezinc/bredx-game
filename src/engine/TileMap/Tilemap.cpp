@@ -87,9 +87,6 @@ void TileMap::atualizarMapa(sf::View& camera)
 
 void TileMap::atualizarCoordenadas(sf::View& view)
 {
-    // Define a precisão para 4 casas decimais
-    std::cout << std::fixed << std::setprecision(4);
-
     // Obter as coordenadas da view atual
     sf::Vector2f viewCenter = view.getCenter();
     sf::Vector2f viewSize = view.getSize();

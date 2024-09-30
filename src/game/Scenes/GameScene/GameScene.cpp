@@ -22,9 +22,9 @@ void GameScene::inicializar()
 
     map.loadMapFromFile("../assets/newmap/mapa.tmj");
     map.loadSheet(gRecursos->getTexture("tilesheet"));
-    cenario.addLayer(gRecursos->getTexture("cenario3"), 0.5);
-    cenario.addLayer(gRecursos->getTexture("cenario2"), 0.75);
-    cenario.addLayer(gRecursos->getTexture("cenario1"), 1);
+    cenario.addLayer(gRecursos->getTexture("cenario3"), 0.1,  0);
+    cenario.addLayer(gRecursos->getTexture("cenario2"), 0.2, 1);
+    cenario.addLayer(gRecursos->getTexture("cenario1"), 0,    2);
 
     cenario.setPosition(map.getOrigem());
     // janela->setTamanhoCamera(640, 320);
@@ -61,7 +61,7 @@ void GameScene::executar()
     deltaTime = tempo.restart().asSeconds();
     
     sf::View cameraDev;
-    // cenario.atualizar(janela->getView());
+    cenario.atualizar(janela->getView());
 
     if (deltaTime > 0.1f) {
         deltaTime = 0.1f;
