@@ -71,6 +71,7 @@ void GameScene::executar()
         e->executar(deltaTime);
     }
     janela->updateCamera(player->getPosicao());
+    map.atualizaMapa(janela->getView());
 }
 
 void GameScene::renderizar()

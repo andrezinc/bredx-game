@@ -16,8 +16,8 @@ Game::~Game()
 void Game::executar()
 {
     sf::Shader shader;
-    gCenas->empilharCena(std::make_unique<MenuScene>());
-    // gCenas->empilharCena(std::make_unique<GameScene>());
+    // gCenas->empilharCena(std::make_unique<MenuScene>());
+    gCenas->empilharCena(std::make_unique<GameScene>());
 
     while(janela->isOpen())
     {

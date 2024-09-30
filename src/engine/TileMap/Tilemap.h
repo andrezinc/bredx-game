@@ -22,6 +22,7 @@ private:
     int height;
     int width;
     std::vector<std::vector<int>> matrizTiles;
+    std::vector<std::vector<sf::Vector2f>> coordenadas;
     std::vector<TileEntity*> lTiles;
     sf::Texture sheet;
 public:
@@ -31,6 +32,7 @@ public:
     void loadSheet(sf::Texture& textura);
     std::vector<Entity*> getEntitys();
     sf::Vector2f getOrigem() const;
+    void atualizaMapa(sf::View& camera);
 };
 }
 #endif
