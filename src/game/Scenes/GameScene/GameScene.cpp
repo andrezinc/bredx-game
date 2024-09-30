@@ -53,7 +53,7 @@ void GameScene::inicializar()
     musica->setLoop(true);
 
     janela->setMoveBounds(sf::FloatRect(200, 200, 100, 300)); // Exemplo de retângulo de 200x200
-    // janela->carregarShaders();
+    janela->setIsShader(true);
 }
 
 void GameScene::executar()

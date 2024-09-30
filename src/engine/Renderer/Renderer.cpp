@@ -12,6 +12,8 @@ Renderer::Renderer(int largura, int altura, const std::string &titulo)
       caixaDeMovimento(largura / 4, altura / 4, largura / 2, altura / 2) // Define os limites iniciais
 {
     janela.setFramerateLimit(60);
+    isShader = false;
+    
     render(); // Chama render para limpar a janela com a cor preta inicialmente
 }
 
@@ -53,6 +55,7 @@ void Renderer::render()
     float deltaTime = clock.restart().asSeconds();
     janela.clear(sf::Color::Black);
     shader.setUniform("time", deltaTime);
+    shader.setUniform("isShader", isShader);
     janela.setView(camera);
     // Ordena os elementos com base na camada
     std::sort(drawables.begin(),
@@ -61,6 +64,10 @@ void Renderer::render()
               {
                   return a.second < b.second;
               });
+
+    // Define os estados de renderização com blending
+    sf::RenderStates states;
+    states.blendMode = sf::BlendAlpha; // Modo de blending padrão
 
     for (const auto &drawable : drawables){
         if (shaderCarregado) {
@@ -99,14 +106,14 @@ void Renderer::carregarShaders()
         std::cerr << "Erro ao carregar shaders: " << path << std::endl;
         shaderCarregado = false;
     }
-
+    isShader = true;
     shader.setUniform("texture", sf::Shader::CurrentTexture);
     shader.setUniform("resolution", sf::Vector2f(janela.getSize().x, janela.getSize().y));
 }
 
 void Renderer::tirarShader()
 {
-    shader.setUniform("isShader", false);
+    setIsShader(false);
 }
 
 void Renderer::setMoveBounds(const sf::FloatRect& bounds) {

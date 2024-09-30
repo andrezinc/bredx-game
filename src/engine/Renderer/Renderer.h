@@ -33,6 +33,7 @@ private:
     std::vector<std::pair<const sf::Drawable*, int>> drawables; ///< vetor de pares de int e drawable
     sf::Shader shader;
     bool shaderCarregado;
+    bool isShader;
     sf::FloatRect caixaDeMovimento ; ///< Limites de movimento da câmera
     Renderer(int largura, int altura, const std::string& titulo);
     ~Renderer();
@@ -144,7 +145,7 @@ public:
     void updateCamera(const sf::Vector2f& playerPos);
 
     bool isPlayerOutsideBounds(const sf::Vector2f& playerPos) const;
-
+    void setIsShader(bool sd) { isShader = sd;}
 };
 
 }

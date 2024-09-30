@@ -4,7 +4,7 @@ Player::Player(sf::Texture& textura, int x, int y, int life, int atack, int poin
        :Character(textura, x, y,  life, atack)
 {
     pontos = points;
-    velocidadeHorizontal = 600.f;
+    velocidadeHorizontal = 200.f;
     
     idleAnimation.setSpriteSheet(gRecursos->getTexture("animacao"));
     walkAnimation.setSpriteSheet(gRecursos->getTexture("animacao"));

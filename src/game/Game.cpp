@@ -6,6 +6,7 @@ Game::Game():
     gCenas(SceneManager::getInstance())
 {
     janela->carregarShaders();
+    // janela->setIsShader(true);
 }
 
 Game::~Game()
@@ -15,7 +16,6 @@ Game::~Game()
 
 void Game::executar()
 {
-    sf::Shader shader;
     // gCenas->empilharCena(std::make_unique<MenuScene>());
     gCenas->empilharCena(std::make_unique<GameScene>());
 

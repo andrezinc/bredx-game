@@ -13,7 +13,7 @@ void CreditsScene::inicializar() {
     music->setLoop(true);
     music->setVolume(50);
     music->play();
-    janela->carregarShaders();
+    janela->setIsShader(true);
     janela->setCentroCamera(janela->getTamanho().x/2,janela->getTamanho().y/2);
     janela->setTamanhoCamera(janela->getTamanho().x,janela->getTamanho().y);
     if (!font.loadFromFile("../assets/fonts/fonte.ttf")) { // Substitua pelo caminho do seu arquivo de fonte
