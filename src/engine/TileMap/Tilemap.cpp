@@ -36,6 +36,7 @@ void TileMap::loadMapFromFile(const std::string& filename)
     std::vector<int> vetorTiles = j["layers"][0]["data"].get<std::vector<int>>();
     // Matriz quadrada
     matrizTiles.resize(height, std::vector<int>(width));
+    matrizEntidades.resize(height, std::vector<TileEntity*>(width));
     coordenadas.resize(height, std::vector<sf::Vector2f>(width));
     // Convertendo matriz linear para quadrada
     for (int i = 0; i < height; ++i) {
@@ -43,12 +44,17 @@ void TileMap::loadMapFromFile(const std::string& filename)
             matrizTiles[i][j] =  vetorTiles[i * width + j];
             coordenadas[i][j] = sf::Vector2f(j * tileSize, i * tileSize);
             if(matrizTiles[i][j]){
-                bool tipo = (matrizTiles[i][j] == 3 || matrizTiles[i][j] == 4)? 1 : 0;
+                bool tipo = (matrizTiles[i][j] == 3 || matrizTiles[i][j] == 4)? 1 : 0; // Mudar depois para algo mais dinâmico
                 TileEntity* novoTile = new TileEntity(sheet, j, i, matrizTiles[i][j] - 1, 0, tileSize, tipo);
+                matrizEntidades[i][j] = novoTile;
                 lTiles.push_back(novoTile);
+            }else{
+                matrizEntidades[i][j] = nullptr;
             }
         }
     }
+
+    std::cout<< "\n Tamanho: " << matrizEntidades.size() << "x" << matrizEntidades[0].size() << "Mapa: " << height << "x" << width  << std::endl;
 }
 std::vector<Entity*> TileMap::getEntitys()
 {
@@ -75,12 +81,16 @@ sf::Vector2f TileMap::getOrigem() const
 {
     return sf::Vector2f( 0 * tileSize, height * tileSize);
 }
-
-void TileMap::atualizaMapa(sf::View& view)
+void TileMap::atualizarMapa(sf::View& camera)
 {
+    atualizarCoordenadas(camera);
+    atualizarTiles();
+}
 
-    // Dentro de TileMap::atualizaMapa
-    std::cout << std::fixed << std::setprecision(4); // Define a precisão para 4 casas decimais
+void TileMap::atualizarCoordenadas(sf::View& view)
+{
+    // Define a precisão para 4 casas decimais
+    std::cout << std::fixed << std::setprecision(4);
 
     // Obter as coordenadas da view atual
     sf::Vector2f viewCenter = view.getCenter();
@@ -93,55 +103,78 @@ void TileMap::atualizaMapa(sf::View& view)
         viewSize.y  // height
     );
 
-    sf::FloatRect  mapRect(
+    sf::FloatRect mapRect(
         coordenadas[0][0].x,
         coordenadas[0][0].y,
         tileSize * width,
         tileSize * height
     );
 
-
-    // std::cout << "Direita  - View: " << viewRect.left + viewRect.width << " Map: " << mapRect.left << std::endl;
-
-    if (viewRect.left < mapRect.left) // Condição para atualizar o mapa para a direita
-    {
-        std::cout << "Atualizando mapa" << std::endl;
-        std::vector<sf::Vector2f> coordenadasNovas;
-        coordenadasNovas.resize(height);
-
-        for (int i = 0; i < height; i++)
-        {
-            coordenadas[i][width - 1] = coordenadas[i][0] - sf::Vector2f(tileSize, 0); // Atualiza a nova posição da coluna à direita
-            coordenadasNovas[i] = coordenadas[i][width - 1];
-        }
-
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = width - 1; j > 0; j--)
-            {
-                coordenadas[i][j] = coordenadas[i][j - 1]; // Move a coluna para a direita
-            }
-            coordenadas[i][0] = coordenadasNovas[i]; // Define a nova posição da primeira coluna
-        }
+    if (viewRect.left < mapRect.left) {
+        moverColunas(-1);
     }
-    // std::cout << "Esquerda - View: " << viewRect.left + viewRect.width << " Map: " << mapRect.left +  mapRect.width << std::endl;
-    if(viewRect.left + viewRect.width >  mapRect.left +  mapRect.width)
+
+    if (viewRect.left + viewRect.width > mapRect.left + mapRect.width) {
+        moverColunas(1);
+    }
+}
+
+void TileMap::moverColunas(int direcao)
+{
+    std::vector<sf::Vector2f> coordenadasNovas;
+    coordenadasNovas.resize(height);
+
+    if(direcao == -1)
     {
-        std::cout << "Atualizando mapa" << std::endl;
-        std::vector<sf::Vector2f>  coordenadasNovas;
-        coordenadasNovas.resize(height);
+        // Atualiza coordenadas da ultima coluna
+        for (int k = 0; k < height; k++)
+        {
+            coordenadas[k][width - 1] = coordenadas[k][0] - sf::Vector2f(tileSize, 0);
+            coordenadasNovas[k] = coordenadas[k][width - 1];
+        }
+        // Coloca todas as colunas uma posicao pra frente
+        for(int i = height - 1; i >= 0;  i--) {
+            for(int j = width - 1; j >= 0; j--){
+                coordenadas[i][j] = coordenadas[i][j - 1];
+            }
+        }
+        // Coloca a coluna modificada no início
         for(int i = 0; i < height; i++)
         {
-            coordenadas[i][0] = coordenadas[i][width - 1] + sf::Vector2f(tileSize, 0);
-            coordenadasNovas[i] = coordenadas[i][0];
+            coordenadas[i][0] = coordenadasNovas[i];
         }
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width - 1; j++) {
-                coordenadas[i][j] = coordenadas[i][j + 1]; // Move a coluna para a esquerda
+    }
+    else
+    {
+        // Atualiza coordenadas da primeira coluna
+        for(int k = 0; k < height; k++)
+        {
+            coordenadas[k][0] = coordenadas[k][width - 1] + sf::Vector2f(tileSize, 0);
+            coordenadasNovas[k] = coordenadas[k][0];
+        }
+        // Coloca todas as colunas uma posicao pra tras
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++){
+                coordenadas[i][j] = coordenadas[i][j + 1];
             }
+        }
+        // Colocar a coluna modificada no início
+        for(int i = 0;  i < height; i++)
+        {
             coordenadas[i][width - 1] = coordenadasNovas[i];
         }
     }
+}
 
+void TileMap::atualizarTiles()
+{
+    std::cout << "Problema ao atualizar tiles\n Tamanho: " << matrizEntidades[0].size() << "x" << matrizEntidades.size()  << std::endl;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            if(matrizEntidades[i][j]  != nullptr) {
+            matrizEntidades[i][j]->setPosicao(coordenadas[i][j]);
+            }
+        }
+    }
 }
 }

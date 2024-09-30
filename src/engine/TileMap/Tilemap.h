@@ -8,11 +8,11 @@ namespace TileEngine {
 
 class TileEntity : public Entity {
 private:
-    bool aux;
+    int id;
 public:
     TileEntity(sf::Texture &textura, int x, int y, int xTile, int yTile, int tileSize, bool colide = 0);
     ~TileEntity(){};
-    void executar(float deltaTime) override {};
+    void executar(float deltaTime) override { atualizaHitBox();};
     void colidiuComTile(Entity* e) override {};
     void colidiu(Entity* e) override { e->colidiuComTile(this); };
 };
@@ -22,6 +22,7 @@ private:
     int height;
     int width;
     std::vector<std::vector<int>> matrizTiles;
+    std::vector<std::vector<TileEntity*>> matrizEntidades;
     std::vector<std::vector<sf::Vector2f>> coordenadas;
     std::vector<TileEntity*> lTiles;
     sf::Texture sheet;
@@ -32,7 +33,10 @@ public:
     void loadSheet(sf::Texture& textura);
     std::vector<Entity*> getEntitys();
     sf::Vector2f getOrigem() const;
-    void atualizaMapa(sf::View& camera);
+    void atualizarCoordenadas(sf::View& view);
+    void atualizarTiles();
+    void atualizarMapa(sf::View& camera);
+    void moverColunas(int direcao);
 };
 }
 #endif

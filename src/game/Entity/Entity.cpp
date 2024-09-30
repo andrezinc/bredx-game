@@ -34,6 +34,7 @@ void Entity::setOrigin()
 void Entity::setPosicao(int x, int y)
 {
     posicao = sf::Vector2f(x, y);
+    sprite.setPosition(posicao);
 }
 
 void Entity::setPosicao(sf::Vector2f novaPosicao)

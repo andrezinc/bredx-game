@@ -72,5 +72,7 @@ public:
      * @return sf::Vector2f 
      */
     sf::Vector2f getOrigin() const;
+
+    int  getId() const {return id;};
 };
 #endif
