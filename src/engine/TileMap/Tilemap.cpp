@@ -53,8 +53,6 @@ void TileMap::loadMapFromFile(const std::string& filename)
             }
         }
     }
-
-    std::cout<< "\n Tamanho: " << matrizEntidades.size() << "x" << matrizEntidades[0].size() << "Mapa: " << height << "x" << width  << std::endl;
 }
 std::vector<Entity*> TileMap::getEntitys()
 {
@@ -122,7 +120,9 @@ void TileMap::atualizarCoordenadas(sf::View& view)
 void TileMap::moverColunas(int direcao)
 {
     std::vector<sf::Vector2f> coordenadasNovas;
+    std::vector<TileEntity*> tempTile;
     coordenadasNovas.resize(height);
+    tempTile.resize(height);
 
     if(direcao == -1)
     {
@@ -131,17 +131,20 @@ void TileMap::moverColunas(int direcao)
         {
             coordenadas[k][width - 1] = coordenadas[k][0] - sf::Vector2f(tileSize, 0);
             coordenadasNovas[k] = coordenadas[k][width - 1];
+            tempTile[k] = matrizEntidades[k][width - 1];
         }
         // Coloca todas as colunas uma posicao pra frente
         for(int i = height - 1; i >= 0;  i--) {
             for(int j = width - 1; j >= 0; j--){
                 coordenadas[i][j] = coordenadas[i][j - 1];
+                matrizEntidades[i][j] = matrizEntidades[i][j -  1];
             }
         }
         // Coloca a coluna modificada no início
         for(int i = 0; i < height; i++)
         {
             coordenadas[i][0] = coordenadasNovas[i];
+            matrizEntidades[i][0] = tempTile[i];
         }
     }
     else
@@ -151,24 +154,26 @@ void TileMap::moverColunas(int direcao)
         {
             coordenadas[k][0] = coordenadas[k][width - 1] + sf::Vector2f(tileSize, 0);
             coordenadasNovas[k] = coordenadas[k][0];
+            tempTile[k] = matrizEntidades[k][0];
         }
         // Coloca todas as colunas uma posicao pra tras
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++){
                 coordenadas[i][j] = coordenadas[i][j + 1];
+                matrizEntidades[i][j] = matrizEntidades[i][j + 1];
             }
         }
         // Colocar a coluna modificada no início
         for(int i = 0;  i < height; i++)
         {
             coordenadas[i][width - 1] = coordenadasNovas[i];
+            matrizEntidades[i][width - 1] = tempTile[i];
         }
     }
 }
 
 void TileMap::atualizarTiles()
 {
-    std::cout << "Problema ao atualizar tiles\n Tamanho: " << matrizEntidades[0].size() << "x" << matrizEntidades.size()  << std::endl;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if(matrizEntidades[i][j]  != nullptr) {

@@ -59,7 +59,8 @@ void GameScene::inicializar()
 void GameScene::executar()
 {
     deltaTime = tempo.restart().asSeconds();
-
+    
+    sf::View cameraDev;
     // cenario.atualizar(janela->getView());
 
     if (deltaTime > 0.1f) {
